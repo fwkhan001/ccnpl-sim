@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!-- $Id: header.html.in,v 1.1 2004/01/07 16:33:23 rutherfo Exp $ -->
+<html lang="en">
+<head>
+<title>Content Based Networking Simulation Library</title>
+<meta http-equiv="Reply-to" content="rutherfo@cs.colorado.edu">
+<meta http-equiv="Owner" content="Matthew J. Rutherford">
+<meta name="Author" content="Matthew J. Rutherford">
+<link href="cbnsim.css" rel="stylesheet" type="text/css">
+<link rev=MADE href="mailto:rutherfo@cs.colorado.edu">
+</head>
+<body>
+<table width="100%" cellspacing=0 cellpadding="3" border=0>
+<tr><td class="headline" bgcolor="#d0d0b0"><a
+href="http://www.cs.colorado.edu/~carzanig/cbn/">Content-Based Networking 
+</a>Simulation Library Documentation (v. @VERSION@)
+</table>
+<p>

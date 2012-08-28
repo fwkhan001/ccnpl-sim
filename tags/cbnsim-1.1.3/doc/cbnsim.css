@@ -1,0 +1,67 @@
+/*
+ *  $Id: cbnsim.css,v 1.1 2004/01/07 16:33:23 rutherfo Exp $ 
+ */
+body {	
+	background: #f0f0e0; 
+	color: Black; 
+	font-family: Helvetica, sans-serif; 
+	font-weight: normal;
+	font-size: 12px;
+}
+DL.el { margin-left: -1cm }
+DIV.fragment { width: 100%; border: none; background-color: #eaeada }
+DIV.ah { background-color: black; margin-bottom: 3; margin-top: 3 }
+TD.md { background-color: #ddddbb; font-family: monospace;  }
+DIV.groupHeader { margin-left: 16; margin-top: 12; margin-bottom: 6; font-weight: bold }
+DIV.groupText { margin-left: 16; font-style: italic; font-size: smaller }
+
+TD.headline { background-color: #d0d0b0; text-align: right }
+TD.footer { background-color: #d0d0b0; text-align: left }
+
+.keyword       { font-weight: bold; color: #000000 }
+.keywordtype   { color: #005030 }
+.keywordflow   { font-weight: bold; color: #000000 }
+.comment       { font-style: italic; color: #808080 }
+.preprocessor  { color: #206020 }
+.stringliteral { color: #208000 }
+.charliteral   { color: #809050 }
+
+A:link { 
+	color: #603000; 
+	text-decoration: none;
+	font-weight: bold; 
+} 
+A:visited { 
+	color: #603000; 
+	text-decoration: none;
+	font-weight: bold; 	
+}
+A:hover {
+	color: #603000; 
+	text-decoration: underline;
+	font-weight: bold; 	
+}
+
+A.qindex:link  { 
+	color: #603000; 
+	text-decoration: none; 
+	font-weight: bold; 	
+}
+A.qindex:visited  {
+	color: #603000; 
+	text-decoration: none; 
+	font-weight: bold; 	
+}
+A.qindex:hover  { 
+	color: #603000; 
+	font-weight: bold; 	
+	text-decoration: underline; 
+}
+
+A.el:link { text-decoration: none; font-weight: bold; color: #905000; } 
+A.el:visited { text-decoration: none; font-weight: bold; color: #905000; }
+A.el:hover { text-decoration: underline; font-weight: bold; italic; color: #905000; }
+
+A.code:link { font-weight: bold; text-decoration: none; }
+A.code:hover { font-weight: bold; text-decoration: underline; }
+A.code:visited { font-weight: bold; text-decoration: none; }
