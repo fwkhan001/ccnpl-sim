@@ -1,0 +1,721 @@
+2012-06-19  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* cbcbsim.cc and many other files
+	workoad file does no more show the topology. Topoogy is passed when simulation is launched (Notice that now, in the brite file, the link 		propagation delay is exppressed in seconds!!!)
+2011-11-14  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	*  CBCBDataCollector.cc and many other files
+	Interest forwarding in line statistics
+2011-11-01  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	*  CBCBNode.cc and many other files
+	Interest forwarding strategies implemented, rnd and rnd balancing
+2011-09-20  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc, CBCBNode.cc and many other files
+	added the possibility to specify from the topo.brite file the caching strategy of a single node so that 2 nodes can have different replacement 		policies and some work on the code style
+2011-06-16  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/SocketManager.cc include/SocketManager.h and many others
+	improved AIMD, halve the cwin only if t_last_halve+T.O > t_new_TO. Pay attention to re-expression of interest (not needed at the moment)     expecially with the multipath
+2011-06-16  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/SocketManager.cc include/SocketManager.h and many others
+	PIT_timeout is now a receiver timeout, and it's decoupled with the real timeout of the PIT (need to change the name)
+2011-06-09  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/SocketManager.cc include/SocketManager.h and many others
+	Do not resend immediately an interest if a time out occoured (verify if work with multipath and modify send_data_interest in Diego's sim versions)
+2011-05-18  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/SPTsBroadcastLayer.cc, src/CBCBNode.cc, src/CCNx*.cc
+	Computing alternative paths( avoid FIB cycles by not forwarding INTEREST to ifid from which you received the interest ), exploiting of Carzaniga's routing table (forward the INTEREST as a message inverting the sense of the Carzaniga's routing protocol)
+2011-04-24  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* ReceiverSocket.cc, cbcbsim.cc, 
+	AIMD added as interest window control protocol.
+2011-04-07  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* CBCBNode.cc, cbcbsim.cc, CCNxNode.cc,  
+	rnd cache policy added
+2011-02-04  Massimo GALLO Luca MUSCARIELLO <firstname.lastname@orange-ftgroup.com>
+	* CCNxNodeCoding.cc, CCNxNodeCoding.h, CBCBNode.cc, cbcbsim.cc, ReceiverSocket.cc, ReceiverSocket.h
+	Coding cache management option added
+2011-02-04  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* CBCBNode.cc, CCNxNode.cc, CCNxNodeDiff.cc, DATA.h, INTEREST.h
+	introduced file length (expressed in chunks) in the DATA and INTEREST packets
+2011-02-04  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* CBCBNode.cc
+	DRR is now done using name address + port (avoid to use same queue for two different content downloads expecially in the case of the 		   	   first link in which no cache and no filtering are used)
+2011-02-18  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* CBCBNode.cc
+	added the possibility to have infinite bandwidth and transfer packet based on the propagation delay (not yet coded in a proper way)
+2011-02-17  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* many different files
+	Diff and undiff simulators merged (possibility to manage cache for different applications)
+	A file that specify the names that need statistics (option -classes k filename will do statistics chunk by chunk) 
+        alternatively use -classes c number_of_classes that keeps statistics with class granularity for classes less or equal to the specified number
+2010-11-16  Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CBCBNode.cc, include/CBCBNode.h, src/CCNxNode.cc, include/CCNxNode.h, include/CBCBNodeFactory.h, src/cbcbsim.cc
+	Added possibility to specify different cache sizes for different nodes 
+2010-10-26 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc include/CCNxNode.h
+	added in stderr file the notion of different files downloading from a node
+2010-10-06 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CBCBNode.cc src/CCNxNode.cc src/cbcbsim.cc
+	removed possibility to cache and filter within the node that generates Interests (Client) 
+2010-09-11 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/ReceiverSocket.cc
+	temporal change to win protocol (no possibility to make FEC) and always resend interests not satisfied!
+2010-06-11 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/cbcbsim.cc src/CBCBNode.cc
+	added command option to disable filtering in client's caches
+2010-06-11 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc cbcbsim/CCNxNode.h src/CBCBNode.cc cbcbsim/CBCBNode.h
+	PIT lookup modified, added a parameter to disable filtering
+
+2010-04-30 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc src/ReceiverSocket.cc
+	Accept more contemporary identical downloading processes
+
+2010-04-14 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc
+	fixed a cache bug, accept cache size in kilobit
+
+2010-04-13 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc
+	improved structure of the Receiver socket list (exploit the new index: CCNx URI)
+
+2010-04-12 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNxNode.cc
+	improved search in the PIT_table (exploit the new index: CCNx URI)
+
+2010-03-29 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CBCBDataCollector.cc, src/CBCBNode.cc, include/cbcbsim/CBCBDataCollector.h, include/cbcbsim/CBCBNode.h
+	modified rate and loss calculation
+
+2010-03-29 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CBCBNode.cc, src/DRR.cc, include/cbcbsim/DRR.h
+	include the possibility of use DRR in the routers' queues
+
+2010-03-02 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CCNx.cc, include/cbcbsim/CCNx.h
+	improved cache mechanism
+
+2010-02-28 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CBCBNode.cc, src/ReceiverSocket.cc, include/cbcbsim/CBCBNode.h, include/cbcbsim/ReceiverSocket.h, src/CCNx.cc, include/cbcbsim/CCNx.h
+	window protocol added with two fixed size windows. Receiver windows (simulate FEC) and Interest windows
+
+2010-02-20 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* include/cbcbsim/DATA.h, include/cbcbsim/INTEREST.h, include/cbcbsim/INFO.h
+	CCNx packets added
+
+2010-02-20 Massimo GALLO <firstname.lastname@orange-ftgroup.com>
+	* src/CBCBNode.cc
+	fixed Rate limitation policy.
+
+2009-12-14  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/CBCBNode.cc:
+	change the msp const policy to uniform policy, but the command is still "c"
+
+2009-11-06  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/DebitLimitTimer.cc, include/cbcbsim/DebitLimitTimer.h:
+	add the Debit Limit Policy.
+
+	* src/cbcbsim.cc, include/cbcbsim/ProtocolOptions.h, src/CBCBSimulation.cc, include/cbcbsim/CBCBSimulation.h, src/CBCBNode.cc, include/cbcbsim/CBCBNode.h:
+	add the Receiver Based Flow Control policy.
+
+	* src/CBCBNode.cc, include/cbcbsim/CBCBNode.h, include/cbcbsim/CBCBDataCollector.h
+	add the static collector for RAF and MEC.
+
+2009-11-04  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/cbcbsim.cc, include/cbcbsim/ProtocolOptions.h, src/CBCBSimulation.cc, include/cbcbsim/CBCBSimulation.h, src/CBCBNode.cc, include/cbcbsim/CBCBNode.h:
+	add the Mec Throughput Limit policy to the simulator.
+
+2009-11-02  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/cbcbsim.cc, include/cbcbsim/ProtocolOptions.h, src/CBCBSimulation.cc, include/cbcbsim/CBCBSimulation.h, src/CBCBNode.cc, include/cbcbsim/CBCBNode.h:
+	delete the "prp" function because now we want is the prediate changing
+	based on the reception of mec.
+	add the "msp" function to manipulate the size of content pieces for every
+	RAF request.
+
+2009-10-30  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* include/cbcbsim/RAF.h, include/cbcbsim/MEC.h:
+	add these two heahers to form the new sorts of packets in the simulation,
+	which concern about real content delivery, at the same time, defining old
+	ME pecket as the the light weight packet header, which indicates the content,
+	but not the content itself.
+
+	* include/cbcbsim/CBCBNode.h, src/CBCBNode.cc:
+	cut the connection between the cache and the ME, RA. And form the new relation
+	between MEC, RAF, ME, RA and cache. Now the RA request is broadcasted by the subscriber, 
+	attracting ME to reach it. As soon as the subscriber receive the ME indicating
+	the intresting content, it unicasts a RAF to featch the content (possibly several
+	pieces in a roll), this unicast RAF will search the corresponding content in the
+	cache of the nodes along the way to the content distributer, provoking the corresponding
+	pieces of MEC in the cache sent to the subscriber. If not all the pieces of MEC
+	is collected by the subscriber before the RAF reach the content distributer, the RAF
+	will provoke the distributer to send the rest pieces of MEC.
+
+2009-10-23  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/Crandom.cc, include/cbcbsim/Crandom.h:
+	remove these files and rebuild them in /cbnsim, cause the generation
+	of random number is also needed during the generation of workload (keep
+	the message content unchanged during certain interval of time).
+
+2009-10-21  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/CBCBNode.cc:
+	correct the mechanism of set_predicate concerning the functions of prp
+	implemented yesterday. Which could cause the continual predicates from 
+	one node fetch the same msg from the cache all the time before changing
+	the predicates, leading to the miscalculate of throughput and msg compete time.
+	now what we do is once send a predicate, the following predicates before
+	the reception of all the msg anticipated are hold and not sent, until the
+	full reception of msg causing the change of predicate.
+
+2009-10-20  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/CBCBNode.cc, include/cbcbsim/CBCBNode.h, src/cbcbsim.cc, include/cbcbsim/ProtocolOptions.h, src/CBCBSimulation.cc, include/cbcbsim/CBCBSimulation.h: 
+	add some functions to the predicate refresh policy (-prp),
+	now we have MSG_COUNT_CONST, MSG_COUNT_PARETO and MSG_COUNT_PARETO_MEAN
+	besides what are already implemented in the prp.
+
+	* src/Crandom.cc, include/cbcbsim/Crandom.h:
+	for the funcion of prp, the generation of random numbers with
+	different distributions is needed. add these two files based on random.c
+	file written in 1997.
+
+2009-10-15  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* include/cbcbsim/ME.h, src/CBCBNode.cc:
+	Overwrite the operator "<" to make the ascendent sorting based on msg_id,
+	which is the indication of msg's freshness. 
+	LRU_RESORT and LFU_RESORT polocies.
+
+2009-10-14  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* include/cbcbsim/ME.h, src/CBCBNode.cc:
+	add a attribute "m_t_used" for accumulating the used time of a msg.
+	Overwrite the operator ">" to make the descendent sorting be according to
+	the msg's used time. This is for the LFU caching policy.
+
+	* include/cbcbsim/RA.h, src/CBCBNode.cc:
+	add a bool flag "m_ra_c_found" for making the difference between a predicate which
+	has found its corresponding msg in a node's caching and the one who hasn't.
+	This is for avoiding the forwarding of a predicate provoking continus respond msg
+	from different nodes.
+
+2009-10-13  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* include/cbcbsim/CBCBNode.h, src/CBCBNode.cc:
+	add another table - "cache_table", which stocks only the latest predicate for every
+	interface. This facilitate the cache searching.
+
+2009-09-28  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/CBCBNode.cc, include/cbcbsim/CBCBNode.h, include/cbcbsim/ProtocolOptions.h, src/cbcbsim.cc, include/cbcbsim/CBCBSimulation.h:
+	add the caching policies and link capacity limit policies into the interface
+	of the simulator.
+
+2009-09-25  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/CBCBNode.cc, include/cbcbsim/CBCBNode.h:
+	change the return value of funtion "search_in_caching()" from void to bool.
+
+2009-09-23  Feng LIU  <firstname.lastname@orange-ftgroup.com>
+
+	* src/CBCBNode.cc:
+	correct the issue that the msg is sent back to its sender, causing the msg loops.
+
+2008-04-01  Antonio Carzaniga  <firstname.lastname@unisi.ch>
+
+	* exp/Makefile.am: typo
+
+	* src/CBCBNode.cc: adapted to conform to the new cbnsim API.
+
+	* include/cbcbsim/ProtocolOptions.h, include/cbcbsim/CBCBNode.h, include/cbcbsim/BroadcastLayer.h:
+	*** empty log message ***
+
+	* include/cbcbsim/CBCBNodeFactory.h:
+	adapted to conform to the new cbnsim API.
+
+2005-03-04  author  <author@siena>
+
+	* INSTALL: *** empty log message ***
+
+	* include/cbcbsim/CBCBNode.h:
+	added implementations for new virtual methods of cbnsim::Node that
+	deal with power.
+
+	* include/cbcbsim/SPTsBroadcastLayer.h: added missing std::
+
+2005-03-04  Antonio Carzaniga  <firstname.lastname@unisi.ch>
+
+	* INSTALL: *** empty log message ***
+
+	* include/cbcbsim/CBCBNode.h:
+	added implementations for new virtual methods of cbnsim::Node that
+	deal with power.
+
+	* include/cbcbsim/SPTsBroadcastLayer.h: added missing std::
+
+2004-06-11  Matt Rutherford <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.am, exp/fp_vs_t2.gp: *** empty log message ***
+
+2004-04-30  Matt Rutherford <rutherfo@cs.colorado.edu>
+
+	* configure.ac, src/test_MSTBroadcastLayer.cc:
+	*** empty log message ***
+
+	* configure.ac:
+	cleaned up some of the autoconf macros and added in a few things for
+	the autotest stuff (that is now commented out).
+
+	* Makefile.am, VERSION: the VERSION file is no longer used.
+
+	* INSTALL: INSTALL text is changed with a new version of automake.
+
+	* aclocal.m4:
+	aclocal.m4 is one of the files that is generated during the bootstrap
+	process so it should not be checked into CVS.
+
+	* src/Makefile.am: added a run_cbcbsim target for convenience.
+
+2004-04-26  Matt Rutherford <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.am, exp/fn-vs-t.gp, exp/fn_vs_t.gp, exp/fp-vs-t.gp, exp/fp_vs_t.gp, exp/mem-vs-t.gp, exp/mem_vs_t.gp, exp/ra-vs-t.gp, exp/ra_vs_t.gp, exp/srur-vs-t.gp, exp/srur_vs_t.gp:
+	reworked the experiment Makefile to make it easier to adjust and
+	maintain.
+
+2004-04-19  Matt Rutherford <rutherfo@cs.colorado.edu>
+
+	* src/ME.cc, src/RA.cc, src/UR.cc, VERSION, include/cbcbsim/CBCBNode.h, include/cbcbsim/ME.h, include/cbcbsim/PredicateIssueTimer.h, include/cbcbsim/PredicateRefreshTimer.h, include/cbcbsim/RA.h, include/cbcbsim/SR.h, include/cbcbsim/SRSendTimer.h, include/cbcbsim/UR.h, src/CBCBNode.cc, src/Makefile.am, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/SR.cc, src/SRSendTimer.cc:
+	updated to conform to ssim-1.5.0 interface.
+
+2004-03-20  Matt Rutherford <rutherfo@cs.colorado.edu>
+
+	* src/Makefile.am, src/test_MSTBroadcastLayer.cc, src/test_common.sh, src/test_spts.cc, src/test_spts.sh:
+	added a few relevant tests back into the src directory and
+	Makefile.am.
+
+2004-03-19  Antonio Carzaniga  <firstname.lastname@unisi.ch>
+
+	* AUTHORS, COPYING, ChangeLog, INSTALL, Makefile.am, NEWS, README, VERSION, aclocal.m4, bootstrap, configure.ac, exp/Makefile.am, exp/eps.gp, exp/fn-vs-t.gp, exp/fp-vs-t.gp, exp/manual.wl, exp/mem-vs-t.gp, exp/mmd.gp, exp/ra-vs-t.gp, exp/scalability.gp, exp/srur-vs-t.gp, include/Makefile.am, include/cbcbsim/BroadcastLayer.h, include/cbcbsim/CBCBDataCollector.h, include/cbcbsim/CBCBNode.h, include/cbcbsim/CBCBNodeFactory.h, include/cbcbsim/CBCBSimulation.h, include/cbcbsim/ME.h, include/cbcbsim/MSTBroadcastLayer.h, include/cbcbsim/Makefile.am, include/cbcbsim/PredicateIssueTimer.h, include/cbcbsim/PredicateRefreshTimer.h, include/cbcbsim/ProtocolOptions.h, include/cbcbsim/RA.h, include/cbcbsim/SPTsBroadcastLayer.h, include/cbcbsim/SR.h, include/cbcbsim/SRSendTimer.h, include/cbcbsim/UR.h, src/CBCBNode.cc, src/CBCBSimulation.cc, src/ME.cc, src/MSTBroadcastLayer.cc, src/Makefile.am, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/RA.cc, src/SPTsBroadcastLayer.cc, src/SR.cc, src/SRSendTimer.cc, src/UR.cc, src/cbcbsim.cc:
+	baseline.
+
+2004-03-07  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* ChangeLog: *
+
+	* configure.ac, docs/experiments.html, exp/Makefile.am, include/BasicWorkloadParser.h, include/BroadcastLayer.h, include/DataCollector.h, include/DeliveryOracle.h, include/Driver.h, include/Event.h, include/ME.h, include/MSTBroadcastLayer.h, include/Makefile.am, include/MatchHandler.h, include/Node.h, include/NodeFailureTimer.h, include/PredicateIssueTimer.h, include/PredicateRefreshTimer.h, include/RA.h, include/RouterBehavior.h, include/SPTsBroadcastLayer.h, include/SR.h, include/SRSendTimer.h, include/System.h, include/UR.h, include/WorkloadAction.h, include/WorkloadParser.h, include/cbcbsim/Makefile.am, include/constants.h, include/io_exception.h, include/logging.h, include/parse_exception.h, include/types.h, src/BasicWorkloadParser.cc, src/DataCollector.cc, src/DeliveryOracle.cc, src/Driver.cc, src/Makefile.am, src/MatchHandler.cc, src/Node.cc, src/NodeFailureTimer.cc, src/System.cc, src/cbcbsim.cc, src/cbcbsim2.cc, src/logging.cc:
+	Release: 1.0.0
+
+	Implementation of the basic CBCB protocol with accompanying
+	experimental harness.  This version of the software is somewhat
+	different from the version that was used for the INFOCOM 2004
+	submission.  In particular, the DeliveryOracle used (embedded in the
+	CBNSIM library) is quite a bit different (simpler) than the one used
+	for the INFOCOM paper.  This is not because there were any problems
+	with the previous version, it was done this way to try and unify the
+	CBNSIM and CBCBSIM software packages.  At some point in the future,
+	the more complicated DeliveryOracle that CBCBSIM orignially had will
+	likely be pushed up into the CBNSIM library.
+
+	* exp/Makefile.am, exp/fdd.gp, include/cbcbsim/CBCBSimulation.h:
+	cleaned out some directories and exp/Makefile.am.
+
+	* configure.ac, exp/Makefile.am, include/Makefile.in:
+	fixed the scalability command line arguments. added CAT and CUT to the
+	programs that configure looks for.
+
+	* exp/Makefile.am, exp/fn-vs-t.gp, exp/fp-vs-t.gp, exp/mem-vs-t.gp, exp/ra-vs-t.gp, exp/srur-vs-t.gp, include/cbcbsim/CBCBDataCollector.h, include/cbcbsim/CBCBNode.h, include/cbcbsim/ME.h, include/cbcbsim/ProtocolOptions.h, src/CBCBNode.cc, src/CBCBSimulation.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/SRSendTimer.cc:
+	*** empty log message ***
+
+2004-03-06  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.am, exp/manual.wl, include/cbcbsim/CBCBNode.h, include/cbcbsim/SR.h, src/CBCBNode.cc, src/SR.cc:
+	got SR/UR aspects of protocol back in
+
+	* exp/Makefile.am, include/cbcbsim/CBCBNode.h, include/cbcbsim/PredicateIssueTimer.h, include/cbcbsim/PredicateRefreshTimer.h, include/cbcbsim/SRSendTimer.h, src/CBCBNode.cc, src/Makefile.am, src/SRSendTimer.cc, configure.ac, exp/manual.wl, include/cbcbsim/CBCBNodeFactory.h, include/cbcbsim/CBCBSimulation.h, include/cbcbsim/ProtocolOptions.h, include/cbcbsim/RA.h, include/cbcbsim/SR.h, include/cbcbsim/UR.h, src/CBCBSimulation.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/SR.cc, src/UR.cc, src/cbcbsim2.cc:
+	*** empty log message ***
+
+2004-03-04  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* VERSION, configure.ac, exp/Makefile.am, include/Makefile.in, include/cbcbsim/CBCBSimulation.h, include/cbcbsim/ProtocolOptions.h, src/CBCBSimulation.cc, src/MSTBroadcastLayer.cc, src/cbcbsim.cc, src/cbcbsim2.cc:
+	*** empty log message ***
+
+2004-03-02  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* bootstrap, configure.ac, include/Makefile.in, src/CBCBNode.cc, src/MSTBroadcastLayer.cc:
+	changed calls to CBNDEBUG macro to use ostream style instead of
+	printf.
+
+	* Makefile.in, aclocal.m4, configure, depcomp, exp/Makefile.in, header.cc, install-sh, missing, mkinstalldirs, src/Makefile.in, ylwrap:
+	removed autoconf/automake generated files in favor of the new
+	bootstrap setup.
+
+2004-02-05  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/cbcbsim/BroadcastLayer.h, include/cbcbsim/CBCBNode.h, include/cbcbsim/CBCBNodeFactory.h, include/cbcbsim/CBCBSimulation.h, include/cbcbsim/ME.h, include/cbcbsim/MSTBroadcastLayer.h, include/cbcbsim/RA.h, include/cbcbsim/SPTsBroadcastLayer.h, include/cbcbsim/UR.h, src/CBCBNode.cc, src/ME.cc, src/Makefile.am, src/Makefile.in, src/RA.cc:
+	*** empty log message ***
+
+2004-01-18  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/BroadcastLayer.cc, src/CBCBNode.cc, src/CBCBSimulation.cc, src/MSTBroadcastLayer.cc, src/Makefile.am, src/Makefile.in, src/SPTsBroadcastLayer.cc, src/cbcbsim2.cc:
+	*** empty log message ***
+
+2004-01-13  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Event.cc, src/ME.cc, src/Makefile.am, src/Makefile.in, src/RA.cc, src/RouterBehavior.cc, src/SR.cc, src/UR.cc, src/WorkloadAction.cc, src/WorkloadParser.cc, src/cbcbsim.cc, src/io_exception.cc, src/parse_exception.cc, src/spts.cc, src/test_spts.cc:
+	removed extraneous files that have been converted to the
+	new version.
+
+	* src/brite_parser.yy, src/brite_scanner.ll, src/gtitm_parser.yy, src/gtitm_scanner.ll, src/uni_lexer.ll, src/uni_parser.yy:
+	removed topology files and various parsers and scanners that were
+	hanging around.
+
+	* docs/wlgen.html, docs/wlstat.html, include/CBCBNode.h, include/CBCBNodeFactory.h, include/cbcbsim/CBCBNode.h, include/cbcbsim/CBCBNodeFactory.h, include/cbcbsim/ME.h, include/cbcbsim/RA.h, include/cbcbsim/SR.h, include/cbcbsim/UR.h, src/CBCBNode.cc, src/cbcbsim2.cc, src/test_wlgen.sh, src/wlgen.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2004-01-12  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/CBCBNode.h, include/CBCBNodeFactory.h, src/CBCBNode.cc, src/Makefile.am, src/Makefile.in, src/cbcbsim2.cc:
+	got started on cbcbsim2
+
+2004-01-11  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* AUTHORS, Makefile.in, configure, configure.ac, exp/Makefile.in, header.cc, include/BasicWorkloadParser.h, include/BroadcastLayer.h, include/DataCollector.h, include/DeliveryOracle.h, include/Driver.h, include/Event.h, include/ME.h, include/MSTBroadcastLayer.h, include/Makefile.in, include/MatchHandler.h, include/Node.h, include/NodeFailureTimer.h, include/PredicateIssueTimer.h, include/PredicateRefreshTimer.h, include/RA.h, include/RouterBehavior.h, include/SPTsBroadcastLayer.h, include/SR.h, include/SRSendTimer.h, include/System.h, include/UR.h, include/WorkloadAction.h, include/WorkloadParser.h, include/constants.h, include/io_exception.h, include/logging.h, include/parse_exception.h, include/types.h, src/BasicWorkloadParser.cc, src/BroadcastLayer.cc, src/DataCollector.cc, src/DeliveryOracle.cc, src/Driver.cc, src/Event.cc, src/ME.cc, src/MSTBroadcastLayer.cc, src/Makefile.am, src/Makefile.in, src/MatchHandler.cc, src/Node.cc, src/NodeFailureTimer.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/RA.cc, src/RouterBehavior.cc, src/SPTsBroadcastLayer.cc, src/SR.cc, src/SRSendTimer.cc, src/System.cc, src/UR.cc, src/WorkloadAction.cc, src/WorkloadParser.cc, src/cbcbsim.cc, src/cbcbsim2.cc, src/do_test_simplification.sh, src/io_exception.cc, src/logging.cc, src/parse_exception.cc, src/spts.cc, src/test_MSTBroadcastLayer.cc, src/test_Node.cc, src/test_System.cc, src/test_WorkloadAction.cc, src/test_WorkloadParser.cc, src/test_common.sh, src/test_simplification.cc, src/test_spts.sh, src/test_utils.cci, src/test_wlgen.sh, src/wlgen.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2004-01-03  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/DeliveryOracle.cc, src/Node.cc, src/test_simplification.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2003-12-18  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/Event.h, include/ME.h, include/RA.h, include/SR.h, include/UR.h, src/ME.cc, src/Node.cc, src/RA.cc, src/SR.cc, src/UR.cc, src/logging.cc, src/test_Node.cc, src/test_simplification.cc:
+	updated to work with new version of ssimp
+
+2003-12-17  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/DeliveryOracle.h, include/ME.h, include/Message.h, include/Node.h, include/NodeFailureTimer.h, include/PredicateIssueTimer.h, include/PredicateRefreshTimer.h, include/RA.h, include/RouterBehavior.h, include/SRSendTimer.h, include/UR.h, include/WorkloadAction.h, include/WorkloadParser.h, include/logging.h, src/Makefile.am, src/Makefile.in, src/Message.cc, src/logging.cc:
+	updated with new ssimp file names.
+
+2003-12-10  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Node.cc: switched to use
+	switched to use the forwarding table bytesize()
+
+	* exp/Makefile.am, exp/Makefile.in, src/Node.cc, exp/scalability.gp:
+	*** empty log message ***
+
+	* exp/Makefile.am, exp/Makefile.in, src/Driver.cc, src/Node.cc:
+	fixed bug in SR/UR protocol where a node that didn't
+	propagate SR was not issuing a UR in response
+
+	* src/Node.cc, exp/Makefile.in, exp/Makefile.am, exp/fn-vs-t.gp, exp/mem-vs-t.gp, include/Node.h, src/do_test_simplification.sh, src/test_Node.cc:
+	*** empty log message ***
+
+2003-12-09  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.am, exp/Makefile.in: *** empty log message ***
+
+	* exp/Makefile.am, exp/Makefile.in:
+	added the 600 node BRITE topology and adjusted scalability experiment
+	to use it.
+
+	* exp/Makefile.am, exp/Makefile.in, src/Makefile.am, src/Makefile.in, exp/scalability.gp, include/Node.h, include/System.h, src/System.cc, src/cbcbsim.cc, src/do_test_simplification.sh, src/test_Node.cc:
+	added some more tests for Node
+
+2003-12-08  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/wlgen.cc: added -fmin/-fmax command line options
+
+	* src/wlgen.cc, exp/scalability.gp, exp/Makefile.am, exp/Makefile.in, exp/mem-vs-t.gp, include/Node.h, include/SR.h, include/UR.h, src/DataCollector.cc, src/DeliveryOracle.cc, src/Node.cc, src/SR.cc, src/UR.cc, src/cbcbsim.cc:
+	*** empty log message ***
+
+2003-12-07  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.in, exp/Makefile.am, include/WorkloadParser.h, src/Makefile.am, src/Makefile.in, src/WorkloadParser.cc, src/do_test_simplification.sh, src/test_simplification.cc:
+	*** empty log message ***
+
+	* include/logging.h: wrapped definition of SRDEBUG with a SRDEBUG_ON
+	compiler define that by default is not defined
+
+	* exp/Makefile.am, exp/Makefile.in, include/Driver.h, include/Link.h, include/Node.h, include/System.h, src/DataCollector.cc, src/Link.cc, src/MSTBroadcastLayer.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/System.cc, src/cbcbsim.cc, src/test_System.cc:
+	removed Links and added a few more memory
+	performance improvements
+
+2003-12-06  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.in, src/DeliveryOracle.cc, src/Node.cc, exp/Makefile.am:
+	*** empty log message ***
+
+	* exp/Makefile.am, exp/Makefile.in, src/DeliveryOracle.cc, src/Driver.cc, src/Makefile.am, src/Makefile.in, src/test_WorkloadAction.cc:
+	fixed problem with Driver and new WorkloadParser
+
+2003-12-05  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Makefile.am, src/Makefile.in, src/test_WorkloadParser.cc, src/test_workloadparser.cc:
+	moved:
+
+	test_workloadparser => test_WorkloadParser
+
+	* exp/Makefile.am, exp/Makefile.in, src/Link.cc, src/ME.cc, src/Makefile.am, src/Makefile.in, src/test_MSTBroadcastLayer.cc, src/test_System.cc, src/test_utils.cci, src/test_workloadparser.cc:
+	*** empty log message ***
+
+2003-12-04  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/DataCollector.h, include/Driver.h, include/System.h, src/DataCollector.cc, src/DeliveryOracle.cc, src/Driver.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/NodeFailureTimer.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/SRSendTimer.cc, src/System.cc, src/WorkloadParser.cc, src/cbcbsim.cc, src/up.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2003-12-03  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.in, src/Makefile.in, exp/Makefile.am, include/WorkloadParser.h, src/Makefile.am, src/WorkloadParser.cc, src/test_workloadparser.cc, src/wlgen.cc, src/wlstat.cc:
+	converted wlstat to use WorkloadParser instead of uni_parser
+
+	* exp/Makefile.in, include/WorkloadAction.h, include/WorkloadParser.h, src/Makefile.am, src/Makefile.in, src/WorkloadAction.cc, src/WorkloadParser.cc, src/test_workloadparser.cc, src/wlgen.cc:
+	*** empty log message ***
+
+2003-12-02  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* docs/experiments.html, exp/Makefile.am, include/WorkloadParser.h, include/parse_exception.h, src/Makefile.am, src/Makefile.in, src/WorkloadParser.cc, src/parse_exception.cc, src/test_wlgen.sh, src/test_workloadparser.cc, src/wlgen.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2003-11-30  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* configure, configure.ac, docs/experiments.html, docs/wlgen.html, docs/wlstat.html, exp/Makefile.am, exp/Makefile.in, exp/eps.gp, exp/fdd.gp, exp/fn-vs-t.gp, exp/fp-vs-t.gp, exp/mmd.gp, exp/ra-vs-t.gp, exp/srur-vs-t.gp, exp/summary.html, src/DeliveryOracle.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/fn-vs-t.gp, src/fp-vs-t.gp, src/logging.cc, src/ra-vs-t.gp, src/srur-vs-t.gp, src/test_wlgen.sh, src/wlgen.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2003-11-24  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/0400.brite, exp/0800.brite, exp/1600.brite, exp/3200.brite, exp/Makefile.am, exp/Makefile.in, exp/cd-ratio-versus-time.gp, exp/cd-ratio-versus-time.sh, exp/ctrl-versus-time.gp, exp/ctrl-versus-time.sh, exp/data-versus-time.gp, exp/data-versus-time.sh, exp/first.wlc, exp/fpc-versus-time.gp, exp/fpc-versus-time.sh, exp/hd.gp, exp/md.gp, exp/r10-0.alt, exp/r100-1.alt, exp/rtup-counting-00.srs, exp/rtup-counting-01.srs, exp/rtup-counting-05.srs, exp/rtup-counting-10.srs, exp/rtup-counting-negative-percent.gpt, exp/rtup-counting-positive-percent.gpt, exp/rtup-timed-00100.srs, exp/rtup-timed-00500.srs, exp/rtup-timed-01000.srs, exp/rtup-timed-10000.srs, exp/rtup-timed-negative-percent.gpt, exp/rtup-timed-positive-percent.gpt, exp/srsp-counting-00.srs, exp/srsp-counting-01.srs, exp/srsp-counting-05.srs, exp/srsp-counting-10.srs, exp/srsp-counting-negative-percent.gpt, exp/srsp-counting-positive-percent.gpt, exp/srsp-timed-00100.srs, exp/srsp-timed-00500.srs, exp/srsp-timed-01000.srs, exp/srsp-timed-10000.srs, exp/srsp-timed-negative-percent.gpt, exp/srsp-timed-positive-percent.gpt, exp/summary.html, exp/wl-fanout.gpt, exp/wl-tdist.gpt, include/Makefile.in, src/DeliveryOracle.cc, src/Makefile.in, src/Node.cc, src/attr_names.dist, src/bool_operators.dist, src/bool_values.dist, src/constr_names.dist, src/double_operators.dist, src/double_values.dist, src/int_operators.dist, src/int_values.dist, src/string_operators.dist, src/string_values.dist, src/types.dist, src/wlstat.cc, Makefile.in, aclocal.m4, configure, configure.ac, exp/0010.brite, exp/0025.brite, exp/0050.brite, exp/0100.brite, exp/0200.brite, exp/0300.brite:
+	started reorganization of exp directory
+
+2003-07-08  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/DeliveryOracle.h, include/Node.h, src/DeliveryOracle.cc, src/Makefile.am, src/Makefile.in, src/Node.cc:
+	added logic to prevent the processing of the Node::send_message method
+	from affecting the false-positive metrics.
+
+2003-07-07  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* ChangeLog, include/DataCollector.h, include/Link.h, include/Makefile.am, include/Makefile.in, src/DataCollector.cc, src/DeliveryOracle.cc, src/Link.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/fp-vs-t.gp, src/ra-vs-t.gp, src/srur-vs-t.gp, src/uni_parser.yy:
+	*** empty log message ***
+
+2003-07-02  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/Node.h, include/System.h, src/Makefile.am, src/Makefile.in, src/Node.cc, src/cbcbsim.cc:
+	*** empty log message ***
+
+2003-07-01  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/DeliveryOracle.h, src/DeliveryOracle.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/System.cc, src/fp-vs-t.gp:
+	fixed a problem with the false-negative measurements and added some
+	smarts to the SR issue code.
+
+2003-07-01  carzanig  <carzanig@cs.colorado.edu>
+
+	* include/SPTsBroadcastLayer.h: *** empty log message ***
+
+2003-07-01  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/DeliveryOracle.h, include/Link.h, include/Message.h, include/System.h, exp/0010.brite, exp/0300.brite, exp/hd.gp, exp/md.gp, include/logging.h, src/DataCollector.cc, src/DeliveryOracle.cc, src/Driver.cc, src/Link.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/NodeFailureTimer.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/SRSendTimer.cc, src/System.cc, src/cbcbsim.cc, src/fn-vs-t.gp, src/logging.cc, src/test.wl, src/types.dist, src/uni_lexer.ll, src/uni_parser.yy, src/wlgen.cc, src/wlstat.cc:
+	latest version with a number of changes and the fn-vs-t plot.
+
+2003-06-30  carzanig  <carzanig@cs.colorado.edu>
+
+	* src/SPTsBroadcastLayer.cc: added getHopCount and some cleanup.
+
+	* src/test_spts.sh: adapted to getHopCount output of spts
+
+2003-06-30  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/DataCollector.h, include/DeliveryOracle.h, include/Node.h, include/NodeFailureTimer.h, include/RouteTableUpdateTimer.h, include/System.h, src/DataCollector.cc, src/DeliveryOracle.cc, src/Driver.cc, src/Link.cc, src/ME.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/NodeFailureTimer.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/RouteTableUpdateTimer.cc, src/SRSendTimer.cc, src/System.cc, src/cbcbsim.cc, src/test.wl:
+	*** empty log message ***
+
+2003-06-30  carzanig  <carzanig@cs.colorado.edu>
+
+	* src/Makefile.am:
+	added tests for the all-pairs shortest-paths broadcast layer
+
+	* src/SPTsBroadcastLayer.cc, include/SPTsBroadcastLayer.h:
+	decent version of the broadcast layer based on all-pairs
+	shortest-paths trees.
+
+	* src/spts.cc, src/test_common.sh, src/test_spts.sh:
+	decent version of the broadcast layer based on all-pairs
+	shortest-paths trees.  I've done some minimal testing, also included
+	in this CVS dir.
+
+2003-06-29  carzanig  <carzanig@cs.colorado.edu>
+
+	* include/Makefile.in:
+	added first version of the broadcast layer based on all-pairs
+	shortest-paths trees
+
+2003-06-29  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/Makefile.am, exp/Makefile.in, include/BroadcastLayer.h, include/DataCollector.h, include/DeliveryOracle.h, include/Link.h, include/MSTBroadcastLayer.h, include/Node.h, include/WorkloadAction.h, src/DataCollector.cc, src/DeliveryOracle.cc, src/Driver.cc, src/Link.cc, src/ME.cc, src/MSTBroadcastLayer.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/WorkloadAction.cc, src/cbcbsim.cc, src/wlgen.cc, src/wlstat.cc:
+	changed wlgen and wlstat, changed the way metrics are calc'ed
+
+2003-06-28  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/0025.brite, exp/0050.brite, exp/0100.brite, exp/0200.brite, exp/0400.brite, exp/0800.brite, exp/1600.brite, exp/3200.brite, exp/rtr-rand-wax-0025.brite, exp/rtr-rand-wax-0050.brite, exp/rtr-rand-wax-0100.brite, exp/rtr-rand-wax-0200.brite, exp/rtr-rand-wax-0400.brite, exp/rtr-rand-wax-0800.brite, exp/rtr-rand-wax-1600.brite, exp/rtr-rand-wax-3200.brite:
+	renamed brite topology files
+
+	* exp/as-rand-wax-0600.brite, exp/as-rand-wax-0700.brite, exp/as-rand-wax-0800.brite, exp/as-rand-wax-0900.brite, exp/as-rand-wax-1000.brite, exp/rtr-rand-wax-0025.brite, exp/rtr-rand-wax-0050.brite, exp/rtr-rand-wax-0100.brite, exp/rtr-rand-wax-0200.brite, exp/rtr-rand-wax-0400.brite, exp/rtr-rand-wax-0800.brite, exp/rtr-rand-wax-1600.brite, exp/rtr-rand-wax-3200.brite, include/Makefile.am, include/Makefile.in, include/Node.h, include/PredicateRefreshTimer.h, include/System.h, src/Makefile.am, src/Makefile.in, src/Node.cc, src/PredicateIssueTimer.cc, src/PredicateRefreshTimer.cc, src/System.cc, src/brite_parser.yy, src/brite_scanner.ll, src/cbcbsim.cc, src/int_operators.dist, src/sample.brite, src/sample.wl, src/string_operators.dist, src/uni_lexer.ll, src/uni_parser.yy, src/wlgen.cc, exp/Makefile.am, exp/Makefile.in, exp/as-rand-wax-0025.brite, exp/as-rand-wax-0050.brite, exp/as-rand-wax-0100.brite, exp/as-rand-wax-0200.brite, exp/as-rand-wax-0300.brite, exp/as-rand-wax-0400.brite, exp/as-rand-wax-0500.brite:
+	*** empty log message ***
+
+2003-06-25  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/Makefile.am, include/Makefile.in, include/MatchHandler.h, include/Node.h, include/System.h, src/Makefile.am, src/Makefile.in, src/MatchHandler.cc, src/Node.cc, src/System.cc, src/brite_parser.yy, src/brite_scanner.ll, src/cbcbsim.cc, src/sample.brite, src/sample.topo, src/wlgen.cc, exp/as-rand-wax-0025.brite, exp/as-rand-wax-0050.brite, exp/as-rand-wax-0100.brite, exp/as-rand-wax-0200.brite, exp/as-rand-wax-0300.brite, exp/as-rand-wax-0400.brite, exp/as-rand-wax-0500.brite, exp/as-rand-wax-0600.brite, exp/as-rand-wax-0700.brite, exp/as-rand-wax-0800.brite, exp/as-rand-wax-0900.brite, exp/as-rand-wax-1000.brite:
+	updated to conform to the sff-1.5.0 interface
+
+	added BRITE topologies and the associated brite_parser and
+	brite_scanner.
+
+	integrated the predicate issue policy and the PredicateIssueTimer
+
+2003-06-24  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* configure, configure.ac, exp/Makefile.am, exp/Makefile.in, include/DataCollector.h, include/Link.h, include/Node.h, include/PredicateIssueTimer.h, src/DataCollector.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/PredicateIssueTimer.cc, src/wlgen.cc:
+	added predicate issue policy and changed the ticks-per-minute option
+	of wlgen to be -wtu (workload time unit)
+
+	* src/sample.wl, exp/rtup-counting-00.srs, exp/rtup-counting-01.srs, exp/rtup-counting-05.srs, exp/rtup-counting-10.srs, exp/rtup-timed-00100.srs, exp/rtup-timed-00500.srs, exp/rtup-timed-01000.srs, exp/rtup-timed-10000.srs, exp/srsp-counting-00.srs, exp/srsp-counting-01.srs, exp/srsp-counting-05.srs, exp/srsp-counting-10.srs, exp/srsp-timed-00100.srs, exp/srsp-timed-00500.srs, exp/srsp-timed-01000.srs, exp/srsp-timed-10000.srs, include/DataCollector.h, include/Link.h, include/Makefile.am, include/Makefile.in, src/DataCollector.cc, src/Link.cc:
+	*** empty log message ***
+
+2003-06-23  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* include/System.h, src/Node.cc, src/System.cc, src/cbcbsim.cc, src/uni_lexer.ll, src/uni_parser.yy, src/wlgen.cc, exp/Makefile.am, exp/Makefile.in, exp/rtup-counting-00.srs, exp/rtup-counting-01.srs, exp/rtup-counting-05.srs, exp/rtup-counting-10.srs, exp/rtup-counting-negative-percent.gpt, exp/rtup-counting-positive-percent.gpt, exp/rtup-timed-00100.srs, exp/rtup-timed-00500.srs, exp/rtup-timed-01000.srs, exp/rtup-timed-10000.srs, exp/rtup-timed-negative-percent.gpt, exp/rtup-timed-positive-percent.gpt, exp/srsp-counting-00.srs, exp/srsp-counting-01.srs, exp/srsp-counting-05.srs, exp/srsp-counting-10.srs, exp/srsp-counting-negative-percent.gpt, exp/srsp-counting-positive-percent.gpt, exp/srsp-timed-00100.srs, exp/srsp-timed-00500.srs, exp/srsp-timed-01000.srs, exp/srsp-timed-10000.srs, exp/srsp-timed-negative-percent.gpt, exp/srsp-timed-positive-percent.gpt, include/DeliveryOracle.h, include/Node.h, include/RouteTableUpdateTimer.h, include/SRSendTimer.h, src/DataCollector.cc, src/DeliveryOracle.cc, src/Makefile.am, src/Makefile.in, src/RouteTableUpdateTimer.cc, src/SRSendTimer.cc, src/sample.wl:
+	*** empty log message ***
+
+2003-06-20  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/wlstat.cc, src/System.cc, src/sample.wl, src/Node.cc, src/ME.cc, src/Makefile.in, src/Makefile.am, src/Event.cc, src/DeliveryOracle.cc, src/DataCollector.cc, src/cbcbsim.cc, include/System.h, include/Node.h, include/ME.h, include/logging.h, include/Event.h, include/DeliveryOracle.h, include/DataCollector.h, exp/wl-fanout.gpt, exp/Makefile.in, exp/Makefile.am:
+	*** empty log message ***
+
+2003-06-19  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/uni_lexer.ll, src/System.cc, src/sample.wl, src/Node.cc, src/Makefile.in, src/Makefile.am, src/Driver.cc, src/cbcbsim.cc, include/logging.h, include/Driver.h:
+	got cbcbsim working with the uni_parser/uni_lexer and the in-memory actions
+
+	* include/GTITMReader.h, src/GTITMReader.cc, src/wlgen.cc, src/uni_parser.yy, src/uni_lexer.ll, src/gtitm_scanner.ll, src/gtitm_parser.yy, src/cbcbsim.cc, exp/wl-tdist.gpt, exp/wl-fanout.gpt, exp/Makefile.in, exp/Makefile.am, src/Makefile.am, src/Makefile.in, src/unitest.cc, src/wlstat.cc:
+	*** empty log message ***
+
+2003-06-17  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Makefile.am, src/Makefile.in, src/sample.wl, src/uni_lexer.ll, src/uni_parser.yy, src/unitest.cc:
+	put in the semantic actions for uni_parser
+
+2003-06-16  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Makefile.am, src/Makefile.in, src/gtitm_parser.yy, src/gtitm_scanner.ll, src/int_operators.dist, src/sample.wl, src/string_operators.dist, src/types.dist, src/uni_lexer.ll, src/uni_parser.yy, src/unitest.cc, src/wlgen.cc:
+	*** empty log message ***
+
+2003-06-12  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/wlgen.cc, exp/Makefile.in, exp/Makefile.am:
+	*** empty log message ***
+
+2003-06-11  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* exp/cd-ratio-versus-time.gp, exp/cd-ratio-versus-time.sh, exp/ctrl-versus-time.gp, exp/ctrl-versus-time.sh, exp/data-versus-time.gp, exp/data-versus-time.sh, exp/fpc-versus-time.gp, exp/fpc-versus-time.sh:
+	added data collection scripts and gnuplot scripts
+
+	* exp/r10, exp/r10-0.alt, exp/r10-1.alt, exp/r10-2.alt, src/operators.dist, src/str_values.dist, src/WorkloadAction.cc, src/wlgen.cc, src/types.dist, src/System.cc, src/string_values.dist, src/sample.wl, src/Node.cc, src/Makefile.in, src/Makefile.am, src/Link.cc, src/int_operators.dist, src/Event.cc, src/Driver.cc, src/double_values.dist, src/double_operators.dist, src/DataCollector.cc, src/cbcbsim.cc, src/bool_operators.dist, include/WorkloadAction.h, include/System.h, include/Node.h, include/logging.h, include/Link.h, include/Event.h, include/DataCollector.h, exp/r100-1.alt, exp/Makefile.in, exp/Makefile.am, exp/first.wlc:
+	*** empty log message ***
+
+2003-06-08  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/WorkloadAction.cc, src/wlgen.cc, src/UR.cc, src/uni_parser.yy, src/uni_lexer.ll, src/System.cc, src/SR.cc, src/sample.wl, src/RA.cc, src/Node.cc, src/Message.cc, src/ME.cc, src/Makefile.in, src/GTITMReader.cc, src/Driver.cc, include/WorkloadAction.h, include/UR.h, include/System.h, include/SR.h, include/RA.h, include/Node.h, include/Message.h, include/ME.h, include/Makefile.in, include/Event.h, include/Driver.h, exp/Makefile.in, Makefile.in, configure, aclocal.m4:
+	*** empty log message ***
+
+2003-06-06  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* Makefile.am, Makefile.in, configure, configure.ac, exp/Makefile.am, exp/Makefile.in, exp/r10, exp/r10-0.alt, exp/r10-1.alt, exp/r10-2.alt, header.cc, include/Driver.h, src/Driver.cc, src/Makefile.am, src/Makefile.in, src/attr_names.dist, src/bool_values.dist, src/cbcbsim.cc, src/constr_names.dist, src/int_values.dist, src/operators.dist, src/sample.topo, src/sample.wl, src/str_values.dist, src/string_operators.dist, src/types.dist, src/uni_lexer.ll, src/uni_parser.yy, src/wlgen.cc:
+	got wlgen implmented
+
+2003-06-02  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/uni_parser.yy, src/Makefile.in, src/Makefile.am, src/GTITMReader.cc, include/GTITMReader.h:
+	changed GTITMReader so that it now uses the Yacc parser to
+	read in the topology.
+
+	* src/up.cc, src/uni_parser.yy, src/uni_lexer.ll, src/sample.topo, src/RouterBehavior.cc, src/Makefile.in, src/Makefile.am, include/RouterBehavior.h, include/Makefile.in, ylwrap, Makefile.in, configure.ac, configure, aclocal.m4:
+	incorporated a unified Yacc parser that currently parses the topology
+	file. In the future this will also contain the parsing logic for the
+	workload file, and the attribute file.
+
+	* src/r10-0.alt: *** empty log message ***
+
+2003-05-29  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/MSTBroadcastLayer.cc, src/Makefile.in, src/Makefile.am, src/BroadcastLayer.cc, include/System.h, include/MSTBroadcastLayer.h, include/BroadcastLayer.h:
+	refactored BroadcastLayer into an abstract base class with
+	MSTBroadcastLayer as the current concrete implementation.
+
+	* include/Constraint.h, include/Filter.h, include/Node.h, include/Predicate.h, include/RA.h, include/UR.h, src/Constraint.cc, src/Driver.cc, src/Filter.cc, src/Node.cc, src/Predicate.cc, src/RA.cc, src/UR.cc:
+	initial implementation of all handle_event methods.
+
+	* src/WorkloadAction.cc, src/SR.cc, src/Node.cc, src/Event.cc, src/Driver.cc, src/BroadcastLayer.cc, include/WorkloadAction.h, include/Node.h, include/Event.h, include/BroadcastLayer.h:
+	implemented first cut at the handling of SR
+
+	* src/System.cc, src/r10-0.alt, src/Node.cc, src/Driver.cc, src/BroadcastLayer.cc, include/Node.h, include/BroadcastLayer.h:
+	fixed bug in MST algorithm
+
+2003-05-27  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/WorkloadAction.cc, src/UR.cc, src/RA.cc, src/r10-0.alt, src/Node.cc, src/Makefile.in, src/Makefile.am, src/Driver.cc, include/WorkloadAction.h, include/UR.h, include/RA.h, include/Node.h, include/Driver.h:
+	reworked to use Predicate, Filter and Constraint that are now exported
+	from libssimp.
+
+2003-05-25  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* ChangeLog, src/System.cc, src/r10-0.alt, src/Makefile.in, src/Makefile.am, src/io_exception.cc, src/GTITMReader.cc, src/cbcbsim.cc, include/System.h, include/logging.h, include/io_exception.h, include/GTITMReader.h:
+	*** empty log message ***
+
+2003-05-23  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Node.cc, configure.ac, configure:
+	implemented preliminary version of  handle_event( RA ).
+
+2003-05-22  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* configure, configure.ac, include/Constraint.h, include/Driver.h, include/Event.h, include/Link.h, include/ME.h, include/Node.h, include/Predicate.h, include/RA.h, include/SR.h, include/Simulation.h, include/System.h, include/UR.h, src/Driver.cc, src/Event.cc, src/Link.cc, src/ME.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/Predicate.cc, src/RA.cc, src/SR.cc, src/Simulation.cc, src/System.cc, src/UR.cc, src/cbcbsim.cc:
+	*** empty log message ***
+
+2003-05-21  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/Node.cc, src/ME.cc, src/MatchHandler.cc, src/Makefile.in, src/Makefile.am, include/Node.h, include/ME.h, include/MatchHandler.h:
+	*** empty log message ***
+
+	* src/System.cc, src/Predicate.cc, src/Node.cc, src/Message.cc, src/ME.cc, src/Makefile.in, src/Makefile.am, src/Filter.cc, src/cbcbsim.cc, src/BroadcastLayer.cc, include/System.h, include/Node.h, include/ME.h, include/BroadcastLayer.h:
+	finished crude implementation of BroadcastLayer tree creation
+	algorithm, and cleaned up a bunch of iterator-> to (*iterator).
+
+	* include/Event.h, include/ME.h, include/constants.h, src/Link.cc, src/ME.cc, src/Makefile.am, src/Makefile.in, src/Node.cc, src/UR.cc, src/Simulation.cc, src/cbcbsim.cc, include/Simulation.h, include/Node.h:
+	*** empty log message ***
+
+2003-05-20  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* src/SR.cc, src/Message.cc, src/Makefile.in, src/Makefile.am, src/cbcbsim.cc, include/UR.h, include/SR.h, include/Node.h, include/Message.h, include/Makefile.in, include/Makefile.am, include/Event.h, include/constants.h, configure.ac, configure:
+	Implemented basic messages and processes
+
+	* include/sr.h, src/sr.cc: renamed sr -> SR
+
+	* src/SR.cc, src/RA.cc, src/Makefile.in, src/Makefile.am, src/Link.cc, src/Event.cc, src/cbcbsim.cc, include/SR.h, include/RA.h, include/logging.h, include/Link.h, include/Event.h, include/constants.h:
+	*** empty log message ***
+
+	* src/Predicate.cc, src/Filter.cc, src/Constraint.cc, include/Predicate.h, include/Filter.h, include/Constraint.h:
+	removed extraneous methods and members from Predicate, Filter and
+	Constraint.
+
+	* Makefile.am, Makefile.in, configure, configure.ac, header.cc, include/Constraint.h, include/Filter.h, include/Makefile.am, include/Makefile.in, include/Predicate.h, include/sr.h, src/Constraint.cc, src/Filter.cc, src/Makefile.am, src/Makefile.in, src/Predicate.cc, src/cbcbsim.cc, src/sr.cc:
+	pulled in Predicate, Filter and Constraint from other projects.
+
+2003-05-19  rutherfo  <rutherfo@cs.colorado.edu>
+
+	* AUTHORS, COPYING, ChangeLog, INSTALL, Makefile.am, Makefile.in, NEWS, README, VERSION, aclocal.m4, configure, configure.ac, depcomp, install-sh, missing, mkinstalldirs, src/Makefile.am, src/Makefile.in, src/cbcbsim.cc:
+	initial version
+
