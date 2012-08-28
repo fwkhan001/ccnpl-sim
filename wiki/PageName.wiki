@@ -1,0 +1,21 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+The installation procedure download the required packages and checkout the source code of the simulator from the svn repository.
+The simulator is written in C++ and you need automake gcc and the boost library in your system.
+
+To retrieve the installation script do
+
+svn co https://ccnpl-sim.googlecode.com/svn/tags/ccnpl-sim-0.1.0
+cd ccnpl-sim-0.1.0
+sh install.sh
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
