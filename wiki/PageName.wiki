@@ -8,7 +8,9 @@ The simulator is written in C++ and you need automake gcc and the boost library 
 To retrieve the installation script do
 
 svn co https://ccnpl-sim.googlecode.com/svn/tags/ccnpl-sim-0.1.0
+
 cd ccnpl-sim-0.1.0
+
 sh install.sh
 
 
