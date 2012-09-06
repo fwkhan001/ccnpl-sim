@@ -93,7 +93,7 @@ namespace cbcbsim
     CacheLRU(ssim::ProcessId id, unsigned int cache_limit, unsigned int minimum_chunk_size):Cache(id,cache_limit)
     {
       m_cache_size=0;
-      m_store_by_name_LRU.rehash(cache_limit/minimum_chunk_size);
+      m_store_by_name_LRU.rehash(ceil((double)cache_limit/(double)minimum_chunk_size)+1);
     }
 
     int add_in_cache( const DATAPacket data );

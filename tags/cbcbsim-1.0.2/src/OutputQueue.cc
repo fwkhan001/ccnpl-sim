@@ -38,23 +38,26 @@ int FIFO :: enqueue(CCNxPacket *pkt)
 {
   if ( length()+pkt->size() > size() )
   {
-    cout << Sim::clock() << " dropFIFO " << pkt->content_name() << endl;
+    cout << Sim::clock() << " dropFIFO " 
+      << pkt->content_name() 
+      << " node = " << nid() 
+      << " interface= " << ifid() << endl;
 /*    CBNDEBUG( Sim::clock() << " dropFIFO " << pkt->content_name() << endl);*/
-    m_loss_rate.time_counter(Sim::clock()*m_node->m_options.sim_time_unit, 1);
+   // m_loss_rate.time_counter(Sim::clock()*m_node->m_options.sim_time_unit, 1);
+
     return drop(pkt);
   }
-  m_loss_rate.time_counter(Sim::clock()*m_node->m_options.sim_time_unit, 0);
+  //m_loss_rate.time_counter(Sim::clock()*m_node->m_options.sim_time_unit, 0);
   m_packet_list.push_back(pkt);
   m_length += pkt->size();
-  cout << "FIFO\t" 
-//   << m_packet_list.front()->content_name() 
-      << "\tnode="<< nid() 
-      << "\tface=" << ifid() 
-      << "\t"  << Sim::clock()/1000000
-      << "\t" << length()/80000
-      << "\t" << m_avg_length/80000 
-      << "\t" << m_loss_rate.get_average()
-      << "\t" << rate() << endl;
+    
+//   cout << "FIFO\t" << m_packet_list.front()->content_name() 
+//   << "\tnode="<< nid() 
+//   << "\tface=" << ifid() 
+//   << "\t"  << Sim::clock() 
+//   << "\t" << length() 
+//   << "\t" << rate() 
+//   << "\t" << avg_length() << endl;
   if (m_length == pkt->size())
       return dequeue();
   return 1;
@@ -64,14 +67,16 @@ void FIFO :: transmit()
 {
   m_length -= m_packet_list.front()->size();
   ewma(length());
-//   cout	<< "FIFO\t"
-//   	<< "\tnode="<< nid() 
-// 	<< "\tface=" << ifid() 
-//	<< "\tto " << m_node->i2p(ifid())
-// 	<< "\t"  << Sim::clock()/1000000
-// 	<< "\t" << length()/80000 
-// 	<< "\t" << m_avg_length/80000 
-// 	<< "\t" << rate() << endl;
+//    cout << "FIFO\t" << m_packet_list.front()->content_name() 
+//    << "\tnode="<< nid() 
+//    << "\tface=" << ifid() 
+//    << "\tto " << m_node->i2p(ifid())
+//    << "\t"  << Sim::clock()
+//    << "\t" << length()
+//    << "\t" << rate() 
+//    << "\t" << avg_length()<< endl;
+
+ 
   Sim::signal_event( m_remote_nid, m_packet_list.front(), m_link_delay);
   m_packet_list.pop_front();
 }

@@ -1,0 +1,147 @@
+diff -Naur sff-1.9.5/fwd_table.cc sff-1.9.5-modified/fwd_table.cc
+--- sff-1.9.5/fwd_table.cc	2011-09-08 20:38:14.000000000 +0200
++++ sff-1.9.5-modified/fwd_table.cc	2012-06-12 15:20:20.000000000 +0200
+@@ -620,12 +620,26 @@
+ 	}
+     } while (i->next());
+  cleanup_and_return:
++#ifdef MAX_LEN_MATCH
++    cp.finalize();
++#endif
+     delete(i);
+ #ifdef WITH_STATISTICS
+     sff_timer_stack.pop();
+ #endif
+ }
+ 
++#ifdef MAX_LEN_MATCH
++void CProcessor::finalize() {
++  if (MAX_LEN_MATCH_match)
++  {
++    processor.match_len(MAX_LEN_MATCH_match);
++    for(list<if_t>::iterator it = if_MAX_LEN_MATCH_match.begin();it != if_MAX_LEN_MATCH_match.end(); it++)
++      processor.output(*it);
++  }
++}
++#endif
++
+ bool CProcessor::process_constraint(const Constraint * c) throw() {
+     //
+     // we look at every filter in which the constraint appears
+@@ -651,12 +665,25 @@
+ #ifdef WITH_STATISTICS
+ 		    sff_timer_stack.push(forward_timer);
+ #endif
++#ifndef MAX_LEN_MATCH
+ 		    bool output_result = processor.output(f->i->interface);
++#else
++		    if(MAX_LEN_MATCH_match == fmap[f->id])
++		      if_MAX_LEN_MATCH_match.push_back(f->i->interface);
++		    else if(MAX_LEN_MATCH_match < fmap[f->id])
++		    {
++		      MAX_LEN_MATCH_match = fmap[f->id];
++		      if_MAX_LEN_MATCH_match.clear();
++		      if_MAX_LEN_MATCH_match.push_back(f->i->interface);
++		    }
++#endif
+ #ifdef WITH_STATISTICS
+ 		    sff_timer_stack.pop();
+ #endif
+-		    if (output_result)
+-			return true;
++#ifndef MAX_LEN_MATCH
++ 		    if (output_result)
++ 			return true;
++#endif
+ 		    if (if_mask->get_count() >= target) 
+ 			return true;
+ 		    //
+diff -Naur sff-1.9.5/fwd_table.h sff-1.9.5-modified/fwd_table.h
+--- sff-1.9.5/fwd_table.h	2010-03-11 16:16:40.000000000 +0100
++++ sff-1.9.5-modified/fwd_table.h	2012-06-12 15:20:00.000000000 +0200
+@@ -29,6 +29,8 @@
+ #ifndef FWD_TABLE_H
+ #define FWD_TABLE_H
+ 
++#define MAX_LEN_MATCH
++
+ #include <siena/exceptions.h>
+ #include <siena/forwarding.h>
+ #include <siena/allocator.h>
+@@ -37,6 +39,11 @@
+ #ifndef WITH_STATIC_COUNTERS
+ #include "patricia.h"
+ #endif
++
++#ifdef MAX_LEN_MATCH
++#include <list>
++#endif
++
+ #include "bloom_set.h"
+ 
+ namespace siena {
+@@ -101,6 +108,9 @@
+ 	    } while (i->next());
+ 	    delete(i);
+ 	}
++#ifdef MAX_LEN_MATCH
++	MAX_LEN_MATCH_match=0;
++#endif
+     }
+ 
+     /** method called by the matching function for every matched
+@@ -110,6 +120,15 @@
+      *  function.
+      */
+     bool		process_constraint(const Constraint *) throw ();
++        
++#ifdef MAX_LEN_MATCH    
++    /** method called at the end of the matching function in cleanu phase
++     *
++     *  This method is used to set as matching interfaces only 
++     *  max len matching interfaces at the end of the matching process
++     */
++    void			finalize();
++#endif    
+ 
+ private:
+     /** table of counters for partially-matched filters.
+@@ -157,6 +176,16 @@
+      *  In essence, a message must contain all the attributes in a
+      */
+     bloom_set			bset;
++        
++#ifdef MAX_LEN_MATCH    
++    /** keep track of the max-len match while processing 
++     */
++    unsigned int 		MAX_LEN_MATCH_match;
++    
++    /** list of interfaces that has a max len match
++     */
++    std::list<if_t>		if_MAX_LEN_MATCH_match;
++#endif
+ };
+ 
+ } // end namespace siena
+diff -Naur sff-1.9.5/siena/forwarding.h sff-1.9.5-modified/siena/forwarding.h
+--- sff-1.9.5/siena/forwarding.h	2011-09-08 20:38:14.000000000 +0200
++++ sff-1.9.5-modified/siena/forwarding.h	2012-06-12 15:20:17.000000000 +0200
+@@ -29,6 +29,8 @@
+ #ifndef SIENA_FORWARDING_H
+ #define SIENA_FORWARDING_H
+ 
++#define MAX_LEN_MATCH
++
+ #include <cstddef>
+ #include <new>
+ 
+@@ -94,6 +96,9 @@
+      *  returning true. 
+      **/
+     virtual bool	output(if_t) throw() = 0;
++#ifdef MAX_LEN_MATCH    
++    virtual void	match_len(unsigned int){};
++#endif
+ };
+ 
+ /** @brief hook for the output function for matching interfaces.
