@@ -19,8 +19,10 @@ cbcbsim="cbcbsim-1.0.2"
 # Retrieve, compile, install.
 
 wget http://www.inf.usi.ch/carzaniga/siena/forwarding/$sff.tar.gz
+svn co https://ccnpl-sim.googlecode.com/svn/tags/$sff-patch
 tar xvzf $sff.tar.gz
 cd $sff/ 
+patch -p1 < ../$sff-patch/$sff-patch.patch
 rm -f config.status config.cache config.log configure.lineno config.status.lineno
 ./configure --prefix=${folder}/sff && make install && cd ../
 
