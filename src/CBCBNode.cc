@@ -58,9 +58,9 @@ CBCBNode :: CBCBNode( unsigned int nid, const BroadcastLayer& bl, const Protocol
       cache_repl = 'o';
     cache_size = m_options.cache_limit;
     if (options.cache == ProtocolOptions::CACHING_ON_LRU)
-      cache_repl = 'r';
+      cache_repl = 'l';
     else if (options.cache == ProtocolOptions::CACHING_ON_RND)
-      cache_repl = 'c';
+      cache_repl = 'r';
   }
   if (options.cache_manag == ProtocolOptions::MANAGEMENT_STANDARD)
     m_transport_node = new CCNxNode( nid, options, cache_repl, cache_size);
@@ -362,17 +362,6 @@ int CBCBNode :: process_interest( unsigned int ifid, const INTERESTPacket& inter
     NDEBUG( "route table dirty, updating fwd table..." );
     update_fwd_table();
   }
-  
-// Activate Jim's mechanism
-//   FQ* fq;
-//   if( (fq = dynamic_cast<FQ*>( m_output_queues[ifid] )) )
-//   {
-//     if (!fq->dec_count(interest))
-//     {
-//       cout << Sim::clock() << " dropped interest"<< interest.content_name() << "/"<< interest.chunk_id() << endl;
-//       return 1; 
-//     }
-//   }
 
  const DATAPacket* data = NULL;
 
