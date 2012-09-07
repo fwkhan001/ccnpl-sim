@@ -9,3 +9,16 @@ svn co https://ccnpl-sim.googlecode.com/svn/tags/ccnpl-sim-0.1.0
 cd ccnpl-sim-0.1.0
 
 sh install.sh 
+
+To get some examples with simulation scripts and output postprocessing.
+
+svn co https://ccnpl-sim.googlecode.com/svn/tags/examples
+
+examples/
+├── caching_binary_tree_RND
+│
+├── caching_single_LRU
+│
+├── flow_control_multipath
+│
+└── flow_control_single_path
