@@ -1,6 +1,6 @@
 = Installation =
 
-The installation procedure download the required packages and checkout the source code of the simulator from the svn repository. The simulator is written in C++ and you need automake gcc and the boost library in your system.
+The installation procedure downloads the required packages and checkout the source code of the simulator from the svn repository. The simulator is written in C++ and you need automake gcc and the boost library in your system.
 
 To retrieve the installation script do
 
