@@ -108,6 +108,6 @@ Therefore, LRU and RND cache structures are slightly different. The LRU is imple
 Contrarily from the PIT implementation, the CS hash table maintains a record for each content name (and not content name + packet identifier) in order to maintain few records and use less computationally expensive hash functions. Due to this implementation choice, we need that each packet carries the size (in number of packets) of the content it belongs to (this requirement can be relaxed in the future if the simulator need to manage contents whose size is not known a priori).
 Moreover, for the RND implementation we also need an auxiliary list in order to easily perform random packet(s) removal. 
 
-http://ccnpl-sim.googlecode.com/svn/wiki/fig/caches.png
+http://ccnpl-sim.googlecode.com/svn/wiki/fig/cache.png
 
 The figure illustrates the LRU and RND implementation.
