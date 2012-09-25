@@ -124,18 +124,18 @@ The figure illustrates the structure of the forwarding table (the figure is part
 ====Packet types====
 In CCNPL-Sim we define packets as events that move from a node (alos referred to as process) to another. Obviously like in CCN there are two different packet types: Interests and Data packets.
   * *interest:* contains the message packet used in the original CBCBSim that is matched against the forwarding table during the interest forwarding process. Furthermore, we add URI-like content name, packet identifier, content size (in packets) and other auxiliary information. If the packet identifier is 0, the interest is sent to acquire informations on the content that is requested i.e. number of packets, packet size, etc. Interest packet size is set to 25 Bytes as default.
-  * *data:* contains the informations also carried by the interest packet except from the message packet. If the packet identifier is 0, the data packet (also INFO packet) is sent to reply to an interest packet with packet id 0. Data packet size can vary and is defined by the publish_content command in the workload file (see [README#Input_parameters]).
+  * *data:* contains the informations also carried by the interest packet except from the message packet. If the packet identifier is 0, the data packet (also INFO packet) is sent to reply to an interest packet with packet id 0. Data packet size can vary and is defined by the *publish_content* command in the workload file (see [README#Input_parameters]).
 
 ==Simulation outputs==
-The simulator produces two different output files. The first one is directly printed in stdout and records runtime events e.g. the termination of a content download process. Notice that in principle each event handled by the simulator (packet received, packet sent, packet lost, etc.) can be printed to stdout. However print operations significantly increment the simulation execution time and
-the stdout statistics collected by the released version of the simulator are limited to events that represent the end of a content download process. An example of stdout output is given in the following table:
+The simulator produces two different output files. The first one is directly printed in *stdout* and records runtime events e.g. the termination of a content download process. Notice that in principle each event handled by the simulator (packet received, packet sent, packet lost, etc.) can be printed to *stdout*. However print operations significantly increment the simulation execution time and
+the *stdout* statistics collected by the released version of the simulator are limited to events that represent the end of a content download process. An example of *stdout* output is given in the following table:
 
 
 
-The second output file is a log saved to the path/file name specified to the simulator through the outputfile input parameter. The statistics collected in this file are of three different types. The first one represents network performance as the average queue occupancy) and is preceded by the QUEUE stats: keyword. The following table present an example QUEUE satistics:
+The second output file is a log saved to the path/file name specified to the simulator through the *outputfile* input parameter. The statistics collected in this file are of three different types. The first one represents network performance as the average queue occupancy) and is preceded by the *QUEUE stats:* keyword. The following table present an example QUEUE satistics:
 
 
-The second set of statistics collected in the outputfile represents per pupularity class cache performance (miss, hit, inpu/output request rate) and is preceeded by the Stats: keyword. The following table present an example CACHE satistics: 
+The second set of statistics collected in the *outputfile* represents per pupularity class cache performance (miss, hit, inpu/output request rate) and is preceeded by the Stats: keyword. The following table present an example CACHE satistics: 
 
 The third and last set of statistic represents per node and per forwarding prefix split ratio/rate in case of multipath scenario. An example of the split statistic is represented in the following table: 
 
