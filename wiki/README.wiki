@@ -34,8 +34,8 @@ _Example:_ *publish_content* 0 0.0000000000 100 8000 1 100 0 A = "provider" B = 
 ||1||command || publish_content||
 ||2||node_id || 0 ||
 ||3||publication time || 0.0000000000 ||
-||4||file size [packets] || 100 ||
-||5||packet size [bit] || 8000 ||
+||4||file size _[packets]_ || 100 ||
+||5||packet size _[bit]_ || 8000 ||
 ||6||class_id (popularity class in our settings)|| 1 ||
 ||7,8||unused fields || 100 0 ||
 ||9, .., ; ||content name || A = "provider" B = "video.mpg" ;||
