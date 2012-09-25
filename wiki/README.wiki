@@ -75,7 +75,7 @@ In this section we introduce the simulator structure and briefly describe the im
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
 
-http://ccnpl-sim.googlecode.com/svn/wiki/fig/sim_process.png
+<P align="center"> http://ccnpl-sim.googlecode.com/svn/wiki/fig/sim_process.png </P>
 
 The figure presents an explicative schema of the CCNPL-Sim execution process. The driver reads and dispatch the events from the workload, loading workload events with the same start time. When it finishes, it schedules the next workload event(s) read process to ssim. Notice that workload events dispatched to simulation processes (nodes), can generate delayed events (e.g. packet transmissions, timeouts, etc.) that are scheduled to ssim. Ssim dispatches events to the driver or to network nodes and the event "list" is empty (or the specified simulation time is passed), the simulation execution terminates.
 
@@ -93,7 +93,7 @@ CCNx implementation) in our implementation. To have fast insert, search and dele
 
 For this reasons, we use two mutually linked data structures. A hash table (unordered multimap - boost libraries) for accessing elements by packet name (content name + packet identifier) and an ordered list (map - std C++ libraries) in order to maintain records ordered by insertion time and delete PIT entries consequently. 
 
-http://ccnpl-sim.googlecode.com/svn/wiki/fig/PIT.png
+<P align="center"> http://ccnpl-sim.googlecode.com/svn/wiki/fig/PIT.png </P>
 
 The figure illustrates the PIT implementation.
 
@@ -108,6 +108,6 @@ Therefore, LRU and RND cache structures are slightly different. The LRU is imple
 Contrarily from the PIT implementation, the CS hash table maintains a record for each content name (and not content name + packet identifier) in order to maintain few records and use less computationally expensive hash functions. Due to this implementation choice, we need that each packet carries the size (in number of packets) of the content it belongs to (this requirement can be relaxed in the future if the simulator need to manage contents whose size is not known a priori).
 Moreover, for the RND implementation we also need an auxiliary list in order to easily perform random packet(s) removal. 
 
-http://ccnpl-sim.googlecode.com/svn/wiki/fig/cache.png
+<P align="center"> http://ccnpl-sim.googlecode.com/svn/wiki/fig/cache.png" </P>
 
 The figure illustrates the LRU and RND implementation.
