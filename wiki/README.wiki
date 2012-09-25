@@ -68,3 +68,17 @@ The workload generator takes as input different files that indicates servers, cl
 
 During the workload generation process, time_unit and the sim_length are written at the beginning of the workload file. Then, publish_content commands are generated and written in the workload while reading the contents.dist input file. At this stage, if not otherwise specified to the generator, set_predicate commands are generated through the prefix.dist input file. Finally, using the input information given by contents.dist and clients.dist, the download_content commands
 are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. In [wl_example] a workload example file is reported.
+
+==Simulation run==
+In this section we introduce the simulator structure and briefly describe the implementation of the CCN data structures. The simulator needs some parameters including the topology file, the workload file, etc. that are specified using an option file whose structure is presented in [input].
+
+===Execution Process===
+
+http://code.google.com/p/ccnpl-sim/source/wiki/fig/sim_process.png
+
+Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. Fig. 9.1 presents an explicative schema of the CCNPL-Sim execution process. The driver reads and dispatch the events from the workload, loading workload events with the same start time. When it finishes, it schedules the next workload event(s) read process to ssim. Notice that workload events dispatched to simulation processes (nodes), can generate delayed events (e.g. packet transmissions, timeouts, etc.) that are scheduled to ssim. Ssim dispatches events to the driver or to network nodes and the event "list" is empty (or the specified simulation time is passed), the simulation execution terminates.
+
+
+
+===Networking functionalities===
+To construct our network simulator we first develop networking functionalities such as output queues, that are not implemented in CBCBSim. In particular, we implement First In First Out (FIFO) and Fair Queuing (FQ, implemented using the Deficit Round Robin algorithm, DRR) disciplines.
