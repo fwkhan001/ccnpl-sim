@@ -17,3 +17,45 @@ in which a message is composed by a set of attribute-value pairs called onstrain
   * each constraint corresponds to an element of the URI address i.e. /constraint1/constrant2/../
   * constraints are listed in alphabetical order to represent a URI-like address i.e. the message A = "provider", B ="video", C = "video.mpg" is converted in /provider/video/video.mpg. Notice that also numbers can be used as constraints’ name.
   * selection predicates (prefixes used in the interest forwarding process) are composed by a single filter.
+
+===Input parameters===
+The workload file is composed by a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
+
+  * *time_unit*: indicates the workload’s time unit i.e. if the time unit is 0.0000010000 all the times in the workload file are indicated in μs.
+_Example:_ *time_unit *0.0000010000 ;
+ 
+  * *sim_length*: indicates the length of the simulation expressed using the workload’s time unit. Notice that the simulation length is overridden if a length is specified to the simulator.
+_Example:_ *sim_length* 500000000000.0000000000 ;
+
+  * *publish_content*: indicates that the specified node in the topology will be the server for the specified content. Notice that a file can be published in different network nodes.
+_Example:_ *publish_content* 0 0.0000000000 100 8000 1 100 0 A = "provider" B = "video.mpg" ;
+
+|| column || syntax || example ||
+||1||command || publish_content||
+||2||node_id || 0 ||
+||3||publication time || 0.0000000000 ||
+||4||file size [packets] || 100 ||
+||5||packet size [bit] || 8000 ||
+||6||class_id (popularity class in our settings)|| 1 ||
+||7,8||unused fields || 100 0 ||
+||9, .., ; ||content name || A = "provider" B = "video.mpg" ;||
+
+  * *download_content:* indicates the beginning of the downloading process of the specified content from a particular node.
+_Example:_ *download_content* 2 1000000.0000000000 0 A = "provider" B = "video.mpg" ;
+
+||column||syntax||example||
+||1||command||download_content||
+||2||node_id||2||
+||3||download time||1000000.0000000000||
+||4||unused field||0||
+||5, .., ;|| content prefix || A = "provider" B = "video.mpg" ;||
+
+  * *set_predicate:* this command has been inherited from the CBCBSim. It constructs the shortest path to deliver interest messages from all the potential requester to the node indicated by the command. The command specifies the prefix that will be used during the interest forwarding phase in order to compute the longest prefix match. Notice that this primitive can also be omitted. In this case, routing tables need to be manually specified while launching the simulation run.
+_Example:_ *set_predicate* 0 0.0000000000 0 A = "provider" ;
+
+||column||syntax||example||
+||1||command||set_predicate||
+||2||node_id||0||
+||3||time||0.0000000000||
+||4||unused field||0||
+||5, .., ;||content prefix||A = "provider" ;||
