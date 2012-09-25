@@ -11,4 +11,4 @@ The CBN names are of the type:
 
 _message: [class="warning", severity=1, device-type="hard-drive"]_
 
-_selection predicate: [ (class="warning") ∨ (alert-type="software-error" ∧ severity=1)]_
+_selection predicate: [(class="warning") ∨ (alert-type="software-error" ∧ severity=1)]_
