@@ -66,8 +66,7 @@ The workload generator takes as input different files that indicates servers, cl
   * *prefix.dist:* indicates which prefix(es) a node will serve.
   * *contents.dist:* indicates the contents that will be available for the download, their permanentlocation, their popularity and their size.
 
-During the workload generation process, time_unit and the sim_length are written at the beginning of the workload file. Then, publish_content commands are generated and written in the workload while reading the contents.dist input file. At this stage, if not otherwise specified to the generator, set_predicate commands are generated through the prefix.dist input file. Finally, using the input information given by contents.dist and clients.dist, the download_content commands
-are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. In [wl_example] a workload example file is reported.
+During the workload generation process, *time_unit* and the *sim_length* are written at the beginning of the workload file. Then, *publish_content* commands are generated and written in the workload while reading the *contents.dist* input file. At this stage, if not otherwise specified to the generator, *set_predicate* commands are generated through the *prefix.dist* input file. Finally, using the input information given by *contents.dist* and *clients.dist*, the *download_content* commands are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. In [wl_example] a workload example file is reported.
 
 ==Simulation run==
 In this section we introduce the simulator structure and briefly describe the implementation of the CCN data structures. The simulator needs some parameters including the topology file, the workload file, etc. that are specified using an option file whose structure is presented in [input].
