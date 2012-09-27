@@ -21,14 +21,14 @@ in which a message is composed by a set of attribute-value pairs called onstrain
 ===Workload syntax===
 The workload file is composed by a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
 
-  * *time_unit*: indicates the workload’s time unit i.e. if the time unit is 0.0000010000 all the times in the workload file are indicated in μs.
-_Example:_ *time_unit *0.0000010000 ;
+  * _time`_`unit_: indicates the workload’s time unit i.e. if the time unit is 0.0000010000 all the times in the workload file are indicated in μs.
+Example: _time`_`unit_ 0.0000010000 ;
  
-  * *sim_length*: indicates the length of the simulation expressed using the workload’s time unit. Notice that the simulation length is overridden if a length is specified to the simulator.
-_Example:_ *sim_length* 500000000000.0000000000 ;
+  * _sim`_`length_: indicates the length of the simulation expressed using the workload’s time unit. Notice that the simulation length is overridden if a length is specified to the simulator.
+Example: _sim`_`length_ 500000000000.0000000000 ;
 
-  * *publish_content*: indicates that the specified node in the topology will be the server for the specified content. Notice that a file can be published in different network nodes.
-_Example:_ *publish_content* 0 0.0000000000 100 8000 1 100 0 A = "provider" B = "video.mpg" ;
+  * _publish`_`content_: indicates that the specified node in the topology will be the server for the specified content. Notice that a file can be published in different network nodes.
+Example: _publish`_`content_ 0 0.0000000000 100 8000 1 100 0 A = "provider" B = "video.mpg" ;
 
 || column || syntax || example ||
 ||1||command || publish_content||
@@ -40,8 +40,8 @@ _Example:_ *publish_content* 0 0.0000000000 100 8000 1 100 0 A = "provider" B = 
 ||7,8||unused fields || 100 0 ||
 ||9, .., ; ||content name || A = "provider" B = "video.mpg" ;||
 
-  * *download_content:* indicates the beginning of the downloading process of the specified content from a particular node.
-_Example:_ *download_content* 2 1000000.0000000000 0 A = "provider" B = "video.mpg" ;
+  * _download`_`content:_ indicates the beginning of the downloading process of the specified content from a particular node.
+Example: _download`_`content_ 2 1000000.0000000000 0 A = "provider" B = "video.mpg" ;
 
 ||column||syntax||example||
 ||1||command||download_content||
@@ -50,8 +50,8 @@ _Example:_ *download_content* 2 1000000.0000000000 0 A = "provider" B = "video.m
 ||4||unused field||0||
 ||5, .., ;|| content prefix || A = "provider" B = "video.mpg" ;||
 
-  * *set_predicate:* this command has been inherited from the CBCBSim. It constructs the shortest path to deliver interest messages from all the potential requester to the node indicated by the command. The command specifies the prefix that will be used during the interest forwarding phase in order to compute the longest prefix match. Notice that this primitive can also be omitted. In this case, routing tables need to be manually specified while launching the simulation run.
-_Example:_ *set_predicate* 0 0.0000000000 0 A = "provider" ;
+  * _set`_`predicate:_ this command has been inherited from the CBCBSim. It constructs the shortest path to deliver interest messages from all the potential requester to the node indicated by the command. The command specifies the prefix that will be used during the interest forwarding phase in order to compute the longest prefix match. Notice that this primitive can also be omitted. In this case, routing tables need to be manually specified while launching the simulation run.
+Example: _set`_`predicate:_ 0 0.0000000000 0 A = "provider" ;
 
 ||column||syntax||example||
 ||1||command||set_predicate||
@@ -66,7 +66,7 @@ The workload generator takes as input different files that indicates servers, cl
   * *prefix.dist:* indicates which prefix(es) a node will serve.
   * *contents.dist:* indicates the contents that will be available for the download, their permanentlocation, their popularity and their size.
 
-During the workload generation process, *time_unit* and the *sim_length* are written at the beginning of the workload file. Then, *publish_content* commands are generated and written in the workload while reading the *contents.dist* input file. At this stage, if not otherwise specified to the generator, *set_predicate* commands are generated through the *prefix.dist* input file. Finally, using the input information given by *contents.dist* and *clients.dist*, the *download_content* commands are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. In [wl_example] a workload example file is reported.
+During the workload generation process, _time`_`unit_ and the _sim`_`length_ are written at the beginning of the workload file. Then, _publish`_`content_ commands are generated and written in the workload while reading the *contents.dist* input file. At this stage, if not otherwise specified to the generator, *set_predicate* commands are generated through the *prefix.dist* input file. Finally, using the input information given by *contents.dist* and *clients.dist*, the _download`_`content_ commands are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. In [wl_example] a workload example file is reported.
 
 ==Simulation run==
 In this section we introduce the simulator structure and briefly describe the implementation of the CCN data structures. The simulator needs some parameters including the topology file, the workload file, etc. that are specified using an option file whose structure is presented in [input].
