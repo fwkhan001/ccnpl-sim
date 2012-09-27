@@ -64,7 +64,7 @@ Example: _set`_`predicate:_ 0 0.0000000000 0 A = "provider" ;
 The workload generator takes as input different files that indicates servers, clients and the list of available files. In particular:
   * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ.
   * *prefix.dist:* indicates which prefix(es) a node will serve.
-  * *contents.dist:* indicates the contents that will be available for the download, their permanentlocation, their popularity and their size.
+  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size.
 
 During the workload generation process, _time`_`unit_ and the _sim`_`length_ are written at the beginning of the workload file. Then, _publish`_`content_ commands are generated and written in the workload while reading the *contents.dist* input file. At this stage, if not otherwise specified to the generator, *set_predicate* commands are generated through the *prefix.dist* input file. Finally, using the input information given by *contents.dist* and *clients.dist*, the _download`_`content_ commands are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. This is an example of the command used in order to automatically generate a workload file:
 
