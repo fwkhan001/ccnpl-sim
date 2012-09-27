@@ -62,7 +62,7 @@ Example: _set`_`predicate:_ 0 0.0000000000 0 A = "provider" ;
 
 ===Generation process===
 The workload generator takes as input different files that indicates servers, clients and the list of available files. In particular:
-  * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ. http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/clients.dist
+  * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ. Example file @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/clients.dist
 Example: 2 poisson 1
 
 ||column||syntax||example||
@@ -70,14 +70,14 @@ Example: 2 poisson 1
 ||2||request distribution || poisson ||
 ||3|| rate || 1 ||
 
-  * *prefix.dist:* indicates which prefix(es) a node will serve.Example file http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/prefix.dist
+  * *prefix.dist:* indicates which prefix(es) a node will serve.Example file @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/prefix.dist
 Example: 0 A = "Orange"
 
 ||column||syntax||example||
 ||1||node`_`id || 0 ||
 ||2, .., ;||content prefix || A = "provider" ;||
 
-  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size. Example file http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/final_names20000_constsize.dist
+  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size. Example file @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/final_names20000_constsize.dist
 
 Example: 0.4871169634416396 0.5 1 80000 0 0 100 0 A = "Orange" B = "dsaphonwmf" ;
 
