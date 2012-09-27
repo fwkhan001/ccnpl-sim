@@ -96,6 +96,14 @@ During the workload generation process, _time`_`unit_ and the _sim`_`length_ are
 ../../ccnpl-sim/cbnsim/bin/cbnwlgen -l 500e+03 -wtu 1e-06 -man_routing -files files.dist -prefix prefix.dist -clients clients.dist 
 }}}
 
+options of the workload generation command are: 
+  * -l sim length `[`sec`]`;
+  * -wtu time unit `[`sec`]`;
+  * -man_routing if present omit the automatic routing (from CBN simulator);
+  * -files specify the files published in the network, their probability, etc.;
+  * -prefix specify the prefixes at the servers (not needed if manual routing);
+  * -clients specify the clients, their request rate, etc.
+
 In [wl_example] a workload example file is reported.
 
 ==Simulation run==
