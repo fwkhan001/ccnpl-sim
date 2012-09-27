@@ -1,8 +1,7 @@
-||dci || time || collect and print some stats in outputfile every [time] sec.||
+||dci || time || collect and print some stats in outputfile every `[`time`]` sec.||
 ||sim`_`length || time || sim length expressed in sec (override the length written in the workload).||
 ||output || outputfile || output file.||
 ||queue`_`discipline || FIFO/DRR || queuing discipline, FIFO or DRR (applied at each node).||
-||cache || AUTO/LRU/RND/NO `[`cache size`]` || caching policy, AUTO means "cache policy/size specified in the topology file; 
-[cache size] in kbit.||
-||startup || time || does not collect stats for [time] sec. ||
+||cache || AUTO/LRU/RND/NO `[`cache size`]` ||caching policy, AUTO means "cache policy/size specified in the topology file; `[`cache size`]` in kbit.||
+||startup || time || does not collect stats for `[`time`]` sec. ||
 ||req`_`order || SEQ/RND || chunk request order (SEQ = 1,2,3,...N or RND). ||
