@@ -75,7 +75,12 @@ During the workload generation process, _time`_`unit_ and the _sim`_`length_ are
 In [wl_example] a workload example file is reported.
 
 ==Simulation run==
-In this section we introduce the simulator structure and briefly describe the implementation of the CCN data structures. The simulator needs some parameters including the topology file, the workload file, etc. that are specified using an option file whose structure is presented in [input].
+In this section we introduce the simulator structure and briefly describe the implementation of the CCN data structures. The simulator needs some parameters including the topology file, the workload file, etc. that are specified using an option file whose structure is presented in [input]. 
+This is an example of the command usedto launch the simulation:
+
+{{{
+../../ccnpl-sim/bin/cbcbsim -input [option_file#http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/option_file] > stderr.log
+}}}
 
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
