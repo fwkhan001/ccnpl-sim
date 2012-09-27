@@ -109,7 +109,7 @@ This is an example of the command used to launch the simulation:
 with the option file used in the caching_single_LRU example http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/option_file
 The option file specify three input files that we briefly explain hereafter.
   * *topo.brite*: used to describe the topology to the simulator. The file is divided in two parts (nodes and edges) that we describe in the next two tables.
-Node:
+Nodes:
 ||column||syntax||example||
 ||1||node_id|| 0 ||
 ||2||x coordinate || 10 ||
@@ -118,6 +118,17 @@ Node:
 ||5||cache replacement policy|| 0 ||
 ||6,7||unused||  ||
 
+0	0	1	100000.0	0.001	  100000.0	2	1	E_AS	U
+
+Links:
+||column||syntax||example||
+||1||link_id|| 0 ||
+||2||from || 0 ||
+||3||to || 1 ||
+||4||queue size `[`kbit`]`|| 100000.0 ||
+||5||link delay `[`s`]` || 0.001 ||
+||6||link capacity `[`kbps`]`|| 100000.0 ||
+||7,8||unused|| ||
 
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
