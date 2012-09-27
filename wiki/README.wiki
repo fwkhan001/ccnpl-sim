@@ -118,8 +118,6 @@ Nodes:
 ||5||cache replacement policy|| 0 ||
 ||6,7||unused||  ||
 
-0	0	1	100000.0	0.001	  100000.0	2	1	E_AS	U
-
 Links:
 ||column||syntax||example||
 ||1||link_id|| 0 ||
