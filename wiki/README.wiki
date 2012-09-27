@@ -127,7 +127,8 @@ Links:
 ||5||link delay `[`s`]` || 0.001 ||
 ||6||link capacity `[`kbps`]`|| 100000.0 ||
 ||7,8||unused|| ||
-Here http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/topo.brite the topology used in one of the toys example
+
+Example @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/topo.brite
 
 * *roting.dist*: used to manually specify the routing tables. Automatic routing is written in the workload and can be omitted using the -man_routing option during the workload generation process.
 Example: 0 0 A = "Orange" ;
@@ -138,6 +139,7 @@ Example: 0 0 A = "Orange" ;
 ||3, .., ;||content prefix || A = "provider" ;||
 
 Notice that if from and to node_id coincide this means that the node serves the specified prefix (if this is not present, the node will not reply to interests).
+Example @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/routing.dist
 
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
