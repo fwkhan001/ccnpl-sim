@@ -88,7 +88,7 @@ Example: 0.4871169634416396 0.5 1 80000 0 0 100 0 A = "Orange" B = "dsaphonwmf" 
 ||4||chunk size `[`bit]|| 80000 ||
 ||5||node`_`id|| 0 ||
 ||6,7,8||unused||  ||
-||6, .., ;||content name || A = "Orange" B = "dsaphonwmf" ;||
+||9, .., ;||content name || A = "Orange" B = "dsaphonwmf" ;||
 
 During the workload generation process, _time`_`unit_ and the _sim`_`length_ are written at the beginning of the workload file. Then, _publish`_`content_ commands are generated and written in the workload while reading the *contents.dist* input file. At this stage, if not otherwise specified to the generator, *set_predicate* commands are generated through the *prefix.dist* input file. Finally, using the input information given by *contents.dist* and *clients.dist*, the _download`_`content_ commands are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. This is an example of the command used in order to automatically generate a workload file:
 
@@ -107,6 +107,17 @@ This is an example of the command used to launch the simulation:
 }}}
 
 with the option file used in the caching_single_LRU example http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/option_file
+The option file specify three input files that we briefly explain hereafter.
+  * *topo.brite*: used to describe the topology to the simulator. The file is divided in two parts (nodes and edges) that we describe in the next two tables.
+Node:
+||column||syntax||example||
+||1||node_id|| 0 ||
+||2||x coordinate || 10 ||
+||3||y coordinate || 1 ||
+||4||cache size `[`kbit`]`|| 160000 ||
+||5||cache replacement policy|| 0 ||
+||6,7||unused||  ||
+
 
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
