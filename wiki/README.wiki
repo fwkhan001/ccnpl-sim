@@ -62,9 +62,33 @@ Example: _set`_`predicate:_ 0 0.0000000000 0 A = "provider" ;
 
 ===Generation process===
 The workload generator takes as input different files that indicates servers, clients and the list of available files. In particular:
-  * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ.
-  * *prefix.dist:* indicates which prefix(es) a node will serve.
-  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size.
+  * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ. http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/clients.dist
+Example: 2 poisson 1
+
+||column||syntax||example||
+||1||node`_`id || 2 ||
+||2||request distribution || poisson ||
+||3|| rate || 1 ||
+
+  * *prefix.dist:* indicates which prefix(es) a node will serve.Example file http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/prefix.dist
+Example: 0 A = "Orange"
+
+||column||syntax||example||
+||1||node`_`id || 0 ||
+||2, .., ;||content prefix || A = "provider" ;||
+
+  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size. Example file http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/final_names20000_constsize.dist
+
+Example: 0.4871169634416396 0.5 1 80000 0 0 100 0 A = "Orange" B = "dsaphonwmf" ;
+
+||column||syntax||example||
+||1||class request cumulative probability (multiple entries with the same cum. prob. belongs to the same class) || 0.4871169634416396 ||
+||2||file request cumulative probability (cum. probability of requesting a file in the given class) || 0.5 ||
+||3||file size `[`packets`]` || 1 ||
+||4||chunk size `[`bit]|| 80000 ||
+||5||node`_`id|| 0 ||
+||6,7,8||unused||  ||
+||6, .., ;||content name || A = "Orange" B = "dsaphonwmf" ;||
 
 During the workload generation process, _time`_`unit_ and the _sim`_`length_ are written at the beginning of the workload file. Then, _publish`_`content_ commands are generated and written in the workload while reading the *contents.dist* input file. At this stage, if not otherwise specified to the generator, *set_predicate* commands are generated through the *prefix.dist* input file. Finally, using the input information given by *contents.dist* and *clients.dist*, the _download`_`content_ commands are generated according to the request rate/law (i.e. Poisson(λ), λ = 1) and content popularity specified to the workload generator. This is an example of the command used in order to automatically generate a workload file:
 
@@ -82,7 +106,7 @@ This is an example of the command used to launch the simulation:
 ../../ccnpl-sim/bin/cbcbsim -input option_file > stderr.log
 }}}
 
-here is an example of the option file as used in the caching_single_LRU example http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/option_file
+with the option file used in the caching_single_LRU example http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/option_file
 
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
