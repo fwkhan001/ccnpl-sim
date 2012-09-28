@@ -52,7 +52,7 @@ options of the workload generation command are:
 
 In [wl_example] a workload example file is reported.
 
-==Workload structure==
+====Workload structure====
 
 [Naming]
 
@@ -103,7 +103,7 @@ Example: 0 0 A = "Orange" ;
 Notice that if from and to node_id coincide this means that the node serves the specified prefix (if this is not present, the node will not reply to interests).
 Example @ http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/option_file/routing.dist
 
-==Simulator structure and outputs==
+====Simulator structure and outputs====
 
 [Simulator_structure]
 
