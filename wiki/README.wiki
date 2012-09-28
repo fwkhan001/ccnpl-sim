@@ -6,18 +6,7 @@ packages of the original simulator namely cbcbsim-1.0.2 and cbnsim-1.1.3 2 . Oth
 ==Workload generator==
 In this section we introduce the workload generator tool that is directly derived by the one used in the original CBCBSim.
 
-===Naming adaptation===
-In order to better understand the workload construction, let us first introduce the naming schema used in the simulator. CBCBSim makes use of the naming defined by the CBN architecture. CBN names basically consists in a set of attribute/value pairs constituting the flat content-based address (name). In order to be compliant to the current hierarchical URI-like naming schema adopted by CCN, we use the CBN names with some additional constraints. 
-The CBN names are of the type:
-
-_message: [class="warning", severity=1, device-type="hard-drive"]_
-
-_selection predicate: [(class="warning") ∨ (alert-type="software-error" ∧ severity=1)]_
-
-in which a message is composed by a set of attribute-value pairs called onstraints and the selection predicate is composed by a disjunction (filters) of conjunctions (predicate) of constraints i.e. the selection predicate presented before is composed by two filters: [class="warning"] and [alert-type="software-error" ∧ severity=1]. In order to have URI-like addresses, we impose that:
-  * each constraint corresponds to an element of the URI address i.e. /constraint1/constrant2/../
-  * constraints are listed in alphabetical order to represent a URI-like address i.e. the message A = "provider", B ="video", C = "video.mpg" is converted in /provider/video/video.mpg. Notice that also numbers can be used as constraints’ name.
-  * selection predicates (prefixes used in the interest forwarding process) are composed by a single filter.
+[Naming Adaptation]
 
 ===Workload syntax===
 The workload file is composed by a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
