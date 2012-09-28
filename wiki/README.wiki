@@ -1,7 +1,5 @@
 =CCN Packet Level Simulator - CCNPL-Sim=
 
-http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/option_file
-
 In this document, we briefly present the Content Centric Network Packet Level Simulator (CCNPL-Sim). The simulator has been published under the GNU GPL v2 license and is available for download at http://code.google.com/p/ccnpl-sim/. It includes two main packages cbcbsim and cbnsim, an installation file and some toy examples. CCNPL-Sim is built upon CBCBSim (http://www.inf.usi.ch/carzaniga/cbn/routing/index.html#cbcbsim). In particular, its development started from two
 packages of the original simulator namely cbcbsim-1.0.2 and cbnsim-1.1.3 2 . Other packages originally used in CBCBSim such as Simple Simulation Library (ssim), Siena Synthetic Benchmark Generator (ssbg) and Siena Simplifier (ssimp) were not modified and are still maintained by their original authors. The only package that required modifications was the Siena Fast Forwarding (sff) one in order to perform longest prefix match lookup during the forwarding phase. In the installation process sff-1.9.5, ssbg-1.3.5, ssim-1.7.5 and ssimp-1.1.5 packages are downloaded from their original website and a patch for the sff-1.9.5 package is applied. The README is divided in three parts. Section [README#Workload_generator] is devoted to present the workload structure, its generation process and the adaptation of the Content Based Network (CBN) naming scheme to the CCN one. Section [README#Simulation_run] better explains the real functioning of the simulator. Finally Section [README#Simulation_outputs] briefly illustrates the simulator outputs.
 
@@ -65,7 +63,7 @@ Example: _set`_`predicate:_ 0 0.0000000000 0 A = "provider" ;
 
 ===Generation process===
 The workload generator takes as input different files that indicates servers, clients and the list of available files. In particular:
-  * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ. Example file @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/clients.dist
+  * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ. Example file @ http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/clients.dist
 Example: 2 poisson 1
 
 ||column||syntax||example||
@@ -73,14 +71,16 @@ Example: 2 poisson 1
 ||2||request distribution || poisson ||
 ||3|| rate || 1 ||
 
-  * *prefix.dist:* indicates which prefix(es) a node will serve.Example file @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/prefix.dist
+  * *prefix.dist:* indicates which prefix(es) a node will serve.Example file @ 
+http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/prefix.dist
 Example: 0 A = "Orange"
 
 ||column||syntax||example||
 ||1||node`_`id || 0 ||
 ||2, .., ;||content prefix || A = "provider" ;||
 
-  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size. Example file @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/final_names20000_constsize.dist
+  * *contents.dist:* indicates the contents that will be available for the download, their permanent location, their popularity and their size. Example file @
+http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/final_names20000_constsize.dist
 
 Example: 0.4871169634416396 0.5 1 80000 0 0 100 0 A = "Orange" B = "dsaphonwmf" ;
 
@@ -117,7 +117,7 @@ This is an example of the command used to launch the simulation:
 ../../ccnpl-sim/bin/cbcbsim -input option_file > stderr.log
 }}}
 
-with the option file used in the caching_single_LRU example http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/option_file
+with the option file used in the caching_single_LRU example http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/option_file
 The option file specify three input files. The first one is the workload file that we described before. The other two are respectively the topology and the routing file that we briefly explain hereafter.
   * *topo.brite*: used to describe the topology to the simulator. The file is divided in two parts (nodes and edges) that we describe in the next two tables.
 Nodes:
@@ -139,7 +139,7 @@ Links:
 ||6||link capacity `[`kbps`]`|| 100000.0 ||
 ||7,8||unused|| ||
 
-Example @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/topo.brite
+Example @ http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/topo.brite
 
 * *roting.dist*: used to manually specify the routing tables. Automatic routing is written in the workload and can be omitted using the -man_routing option during the workload generation process.
 Example: 0 0 A = "Orange" ;
@@ -150,7 +150,7 @@ Example: 0 0 A = "Orange" ;
 ||3, .., ;||content prefix || A = "provider" ;||
 
 Notice that if from and to node_id coincide this means that the node serves the specified prefix (if this is not present, the node will not reply to interests).
-Example @ http://ccnpl-sim.googlecode.com/svn/tags/examples/caching_single_LRU/routing.dist
+Example @ http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/option_file/routing.dist
 
 ===Execution Process===
 Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree. 
