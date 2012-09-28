@@ -4,10 +4,7 @@ In this document, we briefly present the Content Centric Network Packet Level Si
 packages of the original simulator namely cbcbsim-1.0.2 and cbnsim-1.1.3 2 . Other packages originally used in CBCBSim such as Simple Simulation Library (ssim), Siena Synthetic Benchmark Generator (ssbg) and Siena Simplifier (ssimp) were not modified and are still maintained by their original authors. The only package that required modifications was the Siena Fast Forwarding (sff) one in order to perform longest prefix match lookup during the forwarding phase. In the installation process sff-1.9.5, ssbg-1.3.5, ssim-1.7.5 and ssimp-1.1.5 packages are downloaded from their original website and a patch for the sff-1.9.5 package is applied. The README is divided in three parts. Section [README#Workload_generator] is devoted to present the workload structure, its generation process and the adaptation of the Content Based Network (CBN) naming scheme to the CCN one. Section [README#Simulation_run] better explains the real functioning of the simulator. Finally Section [README#Simulation_outputs] briefly illustrates the simulator outputs.
 
 ==Workload generator==
-In this section we introduce the workload generator tool that is directly derived by the one used in the original CBCBSim.
-
-===Generation process===
-The workload generator takes as input different files that indicates servers, clients and the list of available files. In particular:
+In this section we introduce the workload generator tool that is directly derived by the one used in the original CBCBSim.The workload generator takes as input different files that indicates servers, clients and the list of available files. In particular:
   * *clients.dist:* indicates the nodes that will request and the file request rate e.g. Poisson of rate λ. Example file @ http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/clients.dist
 Example: 2 poisson 1
 
@@ -62,6 +59,7 @@ In [wl_example] a workload example file is reported.
 
 
 ==Simulation run==
+
 In this section we introduce the simulator structure and briefly describe the implementation of the CCN data structures. The simulator needs some parameters including the topology file, the workload file, etc. that are specified using an option file whose structure is presented in [input]. 
 This is an example of the command used to launch the simulation:
 
@@ -104,65 +102,8 @@ Example: 0 0 A = "Orange" ;
 Notice that if from and to node_id coincide this means that the node serves the specified prefix (if this is not present, the node will not reply to interests).
 Example @ http://code.google.com/p/ccnpl-sim/source/browse/tags/examples/caching_single_LRU/option_file/routing.dist
 
+==Simulator structure and outputs==
+
 [Simulator_structure]
 
-==Simulation outputs==
-The simulator produces two different output files. The first one is directly printed in *stdout* and records runtime events e.g. the termination of a content download process. Notice that in principle each event handled by the simulator (packet received, packet sent, packet lost, etc.) can be printed to *stdout*. However print operations significantly increment the simulation execution time and
-the *stdout* statistics collected by the released version of the simulator are limited to events that represent the end of a content download process. The syntax of the *stdout* output file is represented in the following table:
-
-||column||syntax||example||
-||1||simulation time || 3169053.0000000000 ||
-||2,3||event || closed socket ||
-||4||node id || 2 ||
-||5|| content_name+port_id || /Orange/wgpfowikcv/port:0  ||
-||6|| delivery time `[`sec`]` || 1.023  ||
-||7|| file size `[`bits`]` || 80000  ||
-||8|| average RTT `[`sec`]` || 0.0010  ||
-||9|| average packaet delay (take into account retransmissions) `[`sec`]` || 0.0015  ||
-||10|| keyword || class  ||
-||11|| popularity class || 2  ||
-||12|| sockets still opened in this node || 10  ||
-||13|| avg receiver interest window size || 5.4 ||
-||14|| number of exploited routes || 5  ||
-||15|| average number of exploited routes || 2.4  ||
-
-The second output file is a log saved to the path/file name specified to the simulator through the *outputfile* input parameter. The statistics collected in this file are of three different types. The first one represents network performance as the average queue occupancy) and is preceded by the *QUEUE stats:* keyword. The following table present an example QUEUE satistics:
-
-||column||syntax||example||
-||1||keyword || QUEUE `[`FINAL`]`||
-||2||time (only if not final queue statistic)|| 1.0 ||
-||3||keyword || NODE||
-||4|| node id || 1 ||
-||5|| keyword || to  ||
-||6|| node id || 2  ||
-||7|| average queue size [packets] || 10.43  ||
-
-The second set of statistics collected in the *outputfile* represents per pupularity class cache performance (miss, hit, inpu/output request rate) and is preceeded by the Stats: keyword. The following table present an example CACHE satistics: 
-
-||column||syntax||example||
-||1||keyword || CACHE `[`FINAL`]` NODE ||
-||2||time (only if not final queue statistic) `[`sec`]`|| 2.0 ||
-||3||node id || 1 ||
-||4||request miss rate || 2 ||
-||5||request hit rate || 0.988 ||
-||6||request rate|| 2.988  ||
-||7|| miss probability (with filtered requests as miss)|| 0.6711  ||
-||8|| hit probability || 0.3289  ||
-||9|| request filter probability || 0  ||
-||10|| miss probability (without filtered requests)|| 0.6711 ||
-||11|| keyword || class ||
-||12|| calass_id (popularity class in our settings)|| 1 ||
-
-The third and last set of statistic represents per node and per forwarding prefix split ratio/rate in case of multipath scenario. An example of the split statistic is represented in the following table: 
-
-||column||syntax||example||
-||1||keyword || SPLIT `[`FINAL`]` NODE||
-||2||time (only if not final queue statistic) `[`sec`]`|| 2.0 ||
-||3||keyword || NODE||
-||4|| node id || 1 ||
-||5|| keyword || to  ||
-||6|| node id || 2  ||
-||7|| forwarded requests `[`\%`]` || 23.3  ||
-||8|| forwarded requests `[`rate`]` || 1.4  ||
-
-Notice that the three groups of statistics are printed out each t,,i,, seconds as specified by the parameter *dci* (data collection interval) and at the end of the simulation (if t,,i,, = 0 only final statistics are collected).
+[Simulator_outputs]
