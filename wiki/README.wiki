@@ -6,7 +6,7 @@ packages of the original simulator namely cbcbsim-1.0.2 and cbnsim-1.1.3 2 . Oth
 ==Workload generator==
 In this section we introduce the workload generator tool that is directly derived by the one used in the original CBCBSim.
 
-[Naming Adaptation]
+[Naming]
 
 ===Workload syntax===
 The workload file is composed by a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
