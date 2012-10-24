@@ -27,7 +27,7 @@ examples/
 
 NOTE: If you are yusing gcc version 4.6 (or higher) you need to include the cstddef library in the ssim.cc file (ssim-1.7.5 package). 
 
-At the beginning of ssim.cc
+At the beginning of ssim.cc add the following line
 {{{ 
 #include <cstddef> 
 }}}
