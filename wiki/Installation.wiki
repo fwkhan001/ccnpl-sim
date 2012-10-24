@@ -25,9 +25,9 @@ examples/
 └── flow_control_single_path
 }}}
 
-NOTE: If you are yusing gcc version 4.6 (or higher) you need to include the cstddef library in the ssim.cc file (ssim-1.7.5 package). 
+NOTE: If you are yusing gcc version 4.6 (or higher) you need to include the cstddef library in order to use the _NULL_ primitive (http://gcc.gnu.org/gcc-4.6/porting_to.html) 
 
-At the beginning of ssim.cc add the following line
+At the beginning of ssim.cc (ssim-1.7.5 package) add the following line
 {{{ 
 #include <cstddef> 
 }}}
