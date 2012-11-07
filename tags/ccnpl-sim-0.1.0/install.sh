@@ -8,7 +8,7 @@ folder=${PWD}/ccnpl-sim
 # Required packages developped and maintained by Antonio Carzaniga et al.
 sff="sff-1.9.5"
 ssbg="ssbg-1.3.5"
-ssim="ssim-1.7.5"
+ssim="ssim-1.7.6"
 ssimp="ssimp-1.1.5"
 
 # Required packages developped and maintained by Luca Muscariello, Massimo Gallo et al.
