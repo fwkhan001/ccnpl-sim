@@ -1,6 +1,6 @@
 = Installation =
 
-The installation procedure downloads the required packages and checkout the source code of the simulator from the svn repository. The simulator is written in C++ and you need automake gcc and the boost library in your system.
+The installation procedure downloads the required packages and checkout the source code of the simulator from the svn repository. The simulator is written in C++ and you need *automake*, *gcc* and the *boost* library in your system.
 
 To retrieve the installation script do
 
@@ -10,7 +10,7 @@ cd ccnpl-sim-0.1.0
 sh install.sh 
 }}}
 
-To get some examples with simulation scripts and output postprocessing.
+To get some examples with simulation scripts and output post processing.
 
 {{{
 svn co https://ccnpl-sim.googlecode.com/svn/tags/examples
