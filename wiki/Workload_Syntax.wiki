@@ -1,5 +1,5 @@
 ===Workload syntax===
-The workload file is composed by a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
+The workload file is composed of a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
 
   * _time`_`unit_: indicates the workload’s time unit i.e. if the time unit is 0.0000010000 all the times in the workload file are indicated in μs.
 Example: _time`_`unit_ 0.0000010000 ;
