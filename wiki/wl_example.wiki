@@ -1,4 +1,4 @@
-==Workload file example==
+==Workload file example (3 files published)==
 <BR> time_unit 0.0000010000 ;
 <BR> sim_length 500000000000.0000000000 ;
 <BR> publish_content 0 0.0000000000 100 80000 1 100 0 A = "Orange" B = "dsaphonwmf" ;
