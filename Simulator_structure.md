@@ -1,0 +1,85 @@
+### Execution Process ###
+Once the simulation is running, CCNPL-Sim relies on a Driver (similar to the one in CBCBSim) to read workload events and on the ssim package to manage other type of events. The ssim package is basically a Discrete-Event Simulation Library that stores scheduled events in a complete binary min heap so that the next event to be executed is always at the top of the tree.
+
+
+
+&lt;P align="center"&gt;
+
+ ![http://ccnpl-sim.googlecode.com/svn/wiki/fig/sim_process.png](http://ccnpl-sim.googlecode.com/svn/wiki/fig/sim_process.png) 
+
+&lt;/P&gt;
+
+
+
+The figure presents an explicative schema of the CCNPL-Sim execution process. The driver reads and dispatch the events from the workload, loading workload events with the same start time. When it finishes, it schedules the next workload event(s) read process to ssim. Notice that workload events dispatched to simulation processes (nodes), can generate delayed events (e.g. packet transmissions, timeouts, etc.) that are scheduled to ssim. Ssim dispatches events to the driver or to network nodes and the event "list" is empty (or the specified simulation time is passed), the simulation execution terminates.
+
+### Networking functionalities ###
+To construct our network simulator we first develop networking functionalities such as output queues, that are not implemented in CBCBSim. In particular, we implement First In First Out (FIFO) and Fair Queuing (FQ, implemented using the Deficit Round Robin algorithm, DRR) disciplines.
+
+### CCN data structures and packet types ###
+In order the develop a CCN simulator, we need to implement CCN specific data structures such as Pending Interest Table (PIT), Forwarding Information Base (FIB) and Content Store (CS, Cache). Here we are not interested in the PIT,CS,FIB roles but in briefly recall their usage and introduce their implementations in CCNPL-Sim. Notice that differently from the CCNx implementation (www.ccnx.org/), we strictly separate the three data structures. Furthermore we briefly present the packet types used in CCNPL-Sim.
+
+#### Pending Interest Table - PIT ####
+The PIT keeps track of forwarded interests in order to guide data packets back to its requestor(s). If there exists another PIT entry for the same content name, the interest is not forwarded and the interface from which it has been received is saved. Notice that in order to be able to enable/disable the so called "filtering" feature, we keep a PIT entry for each received interest (differently to the
+CCNx implementation) in our implementation. To have fast insert, search and delete operations in the PIT, we implement it with two data structures. This because the three basic PIT operations need to access the PIT in different ways:
+  * insert and search: look-up by content name.
+  * delete: remove expired PIT entries accessing elements by insertion time.
+
+For this reasons, we use two mutually linked data structures. A hash table (unordered multimap - boost libraries) for accessing elements by packet name (content name + packet identifier) and an ordered list (map - std C++ libraries) in order to maintain records ordered by insertion time and delete PIT entries consequently.
+
+
+
+&lt;P align="center"&gt;
+
+ ![http://ccnpl-sim.googlecode.com/svn/wiki/fig/PIT.png](http://ccnpl-sim.googlecode.com/svn/wiki/fig/PIT.png) 
+
+&lt;/P&gt;
+
+
+
+The figure illustrates the PIT implementation.
+
+
+#### Content Store - CS ####
+The Content Store (CS) in CCN is a temporary memory (cache) used by nodes to directly reply to interests if the requested packet is stored locally. Notice that in order to speed up the content repository we distinguish permanent and cached copies. Permanent copies are stored in a list at the content repository that is checked for the first interest only. Cached copies instead are stored in the CS of the network nodes. As for the PIT, we need to have fast access operations in order to speed up the simulation. The LRU and RND replacement policies are slightly different in terms of insert, search and delete requirements:
+  * insert and search: both LRU and RND need to look-up the CS by content name.
+  * delete: LRU policy needs to remove least recently used packets while RND one pick a packet at random.
+
+Therefore, LRU and RND cache structures are slightly different. The LRU is implemented with two mutually linked data structures. Like the PIT, LRU is constructed with a hash table (unordered map - boost libraries) and an ordered list (list - C++ libraries) respectively for search by name and delete least recently used packet(s). Notice that differently from the PIT, for the CS we used a standard list. This because the element that need to be inserted is always the least recently used and hence it is easy to keep the list ordered by inserting new elements on top of it. The RND replacement policy only needs a hash table to search by name operations as delete decision is taken randomly.
+
+Contrarily from the PIT implementation, the CS hash table maintains a record for each content name (and not content name + packet identifier) in order to maintain few records and use less computationally expensive hash functions. Due to this implementation choice, we need that each packet carries the size (in number of packets) of the content it belongs to (this requirement can be relaxed in the future if the simulator need to manage contents whose size is not known a priori).
+Moreover, for the RND implementation we also need an auxiliary list in order to easily perform random packet(s) removal.
+
+
+
+&lt;P align="center"&gt;
+
+ ![http://ccnpl-sim.googlecode.com/svn/wiki/fig/cache.png](http://ccnpl-sim.googlecode.com/svn/wiki/fig/cache.png)" 
+
+&lt;/P&gt;
+
+
+
+The figure illustrates the LRU and RND implementation.
+
+#### Forwarding Information Base - FIB ####
+
+In CCN, the Forwarding Information Base is used to guide Interest toward possible destinations. The FIB structure in CCNPL-Sim is implemented starting from the one employed by CBCBSim. The forwarding table in CBCBSim is an extension of the basic matching algorithm known as the counting algorithm and its implementation is described in "Forwarding in a content-based network" by Carzaniga et al. Due to the different naming scheme used in CBCBSim, we modify the original FIB match
+function in order to support the longest prefix match operation of CCN nodes.
+
+
+
+&lt;P align="center"&gt;
+
+ ![http://ccnpl-sim.googlecode.com/svn/wiki/fig/fwd_table.png](http://ccnpl-sim.googlecode.com/svn/wiki/fig/fwd_table.png)" 
+
+&lt;/P&gt;
+
+
+
+The figure illustrates the structure of the forwarding table (the figure is partly copied from “Forwarding in a content-based network,”by  Carzaniga, A. and Wolf, A. L.,in Proc. of ACM SIGCOMM, 2003).
+
+#### Packet types ####
+In CCNPL-Sim we define packets as events that move from a node (alos referred to as process) to another. Obviously like in CCN there are two different packet types: Interests and Data packets.
+  * **interest:** contains the message packet used in the original CBCBSim that is matched against the forwarding table during the interest forwarding process. Furthermore, we add URI-like content name, packet identifier, content size (in packets) and other auxiliary information. If the packet identifier is 0, the interest is sent to acquire informations on the content that is requested i.e. number of packets, packet size, etc. Interest packet size is set to 25 Bytes as default.
+  * **data:** contains the informations also carried by the interest packet except from the message packet. If the packet identifier is 0, the data packet (also INFO packet) is sent to reply to an interest packet with packet id 0. Data packet size can vary and is defined by the **publish\_content** command in the workload file (see [README#Input\_parameters](README#Input_parameters.md)).

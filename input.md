@@ -1,0 +1,18 @@
+|dci | time | collect and print some stats in outputfile every `[`time`]` sec.|
+|:---|:-----|:----------------------------------------------------------------|
+|sim`_`length | time | sim length expressed in sec (override the length written in the workload).|
+|output | outputfile | output file.                                                    |
+|queue`_`discipline | FIFO/DRR | queuing discipline, FIFO or DRR (applied at each node).         |
+|cache | AUTO/LRU/RND/NO `[`cache size`]` |caching policy, AUTO means "cache policy/size specified in the topology file; `[`cache size`]` in kbit.|
+|startup | time | does not collect stats for `[`time`]` sec.                      |
+|req`_`order | SEQ/RND | chunk request order (SEQ = 1,2,3,...N or RND).                  |
+|flow`_`controller | ICP/FIX win var/fix timer limit | flow controller (applied at each download), Interest window ICP (AIMD) or fix, with size `[`win`]`, var/fix receiver time out of `[`timer`]` sec., limit indicates the max number of interest re-expressions allowed.|
+|    | RAQM pmax beta win limit S |  Interest window RAQM (AIMD) with max probability decrease `[`pmax`]` and decrease factor `[`beta]. `[`win`]` is the initial window size and `[`limit`]` indicates the max number of interest re-expressions allowed. S = `[`source / no`_`source`]` indicates if RAQM collects global or per source RTT stats.|
+|    | CBR win rate | Controller with fix window size `[`win]. Sends an entire window of interests `[`rate`]` times per second. No interest re-expression is allowed.|
+|PIT`_`timer | timer | PIT timer of `[`timer`]` sec.                                   |
+|filtering | YES/NO | enable filtering in the PIT table (applied at each node).       |
+|workload | fileneame.wl | workload of the simulation.                                     |
+|classes`_`stat | class | print out statistics for the fisrt `[`class`]` popularity classes.|
+|routing | routing.dist | manual routing file.                                            |
+|forwarding | RND/BALANCE | interest forwarding policy.                                     |
+|topology | filename.brite | topology filename.                                              |

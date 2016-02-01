@@ -1,0 +1,44 @@
+### Workload syntax ###
+The workload file is composed of a set of commands that we briefly introduce in this section. Here is the list of the accepted commands in the workload with their syntax and an example:
+
+  * _time`_`unit_: indicates the workload’s time unit i.e. if the time unit is 0.0000010000 all the times in the workload file are indicated in μs.
+Example: _time`_`unit_ 0.0000010000 ;
+
+  * _sim`_`length_: indicates the length of the simulation expressed using the workload’s time unit. Notice that the simulation length is overridden if a length is specified to the simulator.
+Example: _sim`_`length_ 500000000000.0000000000 ;
+
+  * _publish`_`content_: indicates that the specified node in the topology will be the server for the specified content. Notice that a file can be published in different network nodes.
+Example: _publish`_`content_ 0 0.0000000000 100 8000 1 100 0 A = "provider" B = "video.mpg" ;
+
+| column | syntax | example |
+|:-------|:-------|:--------|
+|1       |command | publish\_content|
+|2       |node\_id | 0       |
+|3       |publication time | 0.0000000000 |
+|4       |file size `[`packets`]` | 100     |
+|5       |packet size `[`bit`]` | 8000    |
+|6       |class\_id (popularity class in our settings)| 1       |
+|7,8     |unused fields | 100 0   |
+|9, .., ; |content name | A = "provider" B = "video.mpg" ;|
+
+  * _download`_`content:_ indicates the beginning of the downloading process of the specified content from a particular node.
+Example: _download`_`content_ 2 1000000.0000000000 0 A = "provider" B = "video.mpg" ;
+
+|column|syntax|example|
+|:-----|:-----|:------|
+|1     |command|download\_content|
+|2     |node\_id|2      |
+|3     |download time|1000000.0000000000|
+|4     |unused field|0      |
+|5, .., ;| content prefix | A = "provider" B = "video.mpg" ;|
+
+  * _set`_`predicate:_ this command has been inherited from the CBCBSim. It constructs the shortest path to deliver interest messages from all the potential requester to the node indicated by the command. The command specifies the prefix that will be used during the interest forwarding phase in order to compute the longest prefix match. Notice that this primitive can also be omitted. In this case, routing tables need to be manually specified while launching the simulation run.
+Example: _set`_`predicate:_ 0 0.0000000000 0 A = "provider" ;
+
+|column|syntax|example|
+|:-----|:-----|:------|
+|1     |command|set\_predicate|
+|2     |node\_id|0      |
+|3     |time  |0.0000000000|
+|4     |unused field|0      |
+|5, .., ;|content prefix|A = "provider" ;|

@@ -1,0 +1,26 @@
+# Installation #
+
+The installation procedure downloads the required packages and checkout the source code of the simulator from the svn repository. The simulator is written in C++ and you need **automake**, **gcc** and the **boost** library in your system.
+
+To retrieve the installation script do
+
+```
+svn co https://ccnpl-sim.googlecode.com/svn/tags/ccnpl-sim-0.1.0
+cd ccnpl-sim-0.1.0
+sh install.sh 
+```
+
+To get some examples with simulation scripts and output post processing.
+
+```
+svn co https://ccnpl-sim.googlecode.com/svn/tags/examples
+
+examples/
+├── caching_binary_tree_RND 
+│
+├── caching_single_LRU
+│
+├── flow_control_multipath
+│
+└── flow_control_single_path
+```
